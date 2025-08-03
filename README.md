@@ -3,8 +3,6 @@
 ## Project info
 SSH Robotics website - deployed via GitHub Pages to www.sshrobotics.com
 
-**URL**: https://lovable.dev/projects/d0d18f2b-79d3-43bc-9160-f91cc3327885
-
 ## How can I edit this code?
 
 There are several ways of editing your application.
@@ -12,10 +10,6 @@ There are several ways of editing your application.
 **Use Lovable**
 
 Simply visit the [Lovable Project](https://lovable.dev/projects/d0d18f2b-79d3-43bc-9160-f91cc3327885) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
 
 If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
