@@ -2,9 +2,64 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { ContactService } from "@/services/contactService";
+import { useState } from "react";
+
+interface ContactFormData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  company: string;
+  project_type: string;
+  project_description: string;
+}
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<ContactFormData>();
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    try {
+      const result = await ContactService.submitContactForm({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        company: data.company || undefined,
+        project_type: data.project_type,
+        project_description: data.project_description,
+      });
+
+      if (result.success) {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+        });
+        reset();
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const contactInfo = [
     {
       icon: <Mail className="h-5 w-5" />,
@@ -93,63 +148,111 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        First Name
+                        First Name *
                       </label>
-                      <Input placeholder="John" className="transition-all duration-300 focus:border-tech-blue" />
+                      <Input 
+                        {...register("first_name", { required: "First name is required" })}
+                        placeholder="John" 
+                        className="transition-all duration-300 focus:border-tech-blue"
+                      />
+                      {errors.first_name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.first_name.message}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        Last Name
+                        Last Name *
                       </label>
-                      <Input placeholder="Doe" className="transition-all duration-300 focus:border-tech-blue" />
+                      <Input 
+                        {...register("last_name", { required: "Last name is required" })}
+                        placeholder="Doe" 
+                        className="transition-all duration-300 focus:border-tech-blue"
+                      />
+                      {errors.last_name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.last_name.message}</p>
+                      )}
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        Email
+                        Email *
                       </label>
-                      <Input type="email" placeholder="john@example.com" className="transition-all duration-300 focus:border-tech-blue" />
+                      <Input 
+                        {...register("email", { 
+                          required: "Email is required",
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: "Invalid email address"
+                          }
+                        })}
+                        type="email" 
+                        placeholder="john@example.com" 
+                        className="transition-all duration-300 focus:border-tech-blue"
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
                         Company
                       </label>
-                      <Input placeholder="Your Company" className="transition-all duration-300 focus:border-tech-blue" />
+                      <Input 
+                        {...register("company")}
+                        placeholder="Your Company" 
+                        className="transition-all duration-300 focus:border-tech-blue"
+                      />
                     </div>
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Project Type
+                      Project Type *
                     </label>
-                    <select className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground transition-all duration-300 focus:border-tech-blue focus:outline-none">
-                      <option>Select a service</option>
-                      <option>Robotics Engineering</option>
-                      <option>Manufacturing Automation</option>
-                      <option>Consumer Electronics</option>
-                      <option>Custom Solution</option>
+                    <select 
+                      {...register("project_type", { required: "Please select a project type" })}
+                      className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground transition-all duration-300 focus:border-tech-blue focus:outline-none"
+                    >
+                      <option value="">Select a service</option>
+                      <option value="Robotics Engineering">Robotics Engineering</option>
+                      <option value="Manufacturing Automation">Manufacturing Automation</option>
+                      <option value="Consumer Electronics">Consumer Electronics</option>
+                      <option value="Custom Solution">Custom Solution</option>
                     </select>
+                    {errors.project_type && (
+                      <p className="text-red-500 text-sm mt-1">{errors.project_type.message}</p>
+                    )}
                   </div>
                   
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Project Description
+                      Project Description *
                     </label>
                     <Textarea 
+                      {...register("project_description", { required: "Project description is required" })}
                       placeholder="Tell us about your project requirements..."
                       rows={5}
                       className="transition-all duration-300 focus:border-tech-blue"
                     />
+                    {errors.project_description && (
+                      <p className="text-red-500 text-sm mt-1">{errors.project_description.message}</p>
+                    )}
                   </div>
                   
-                  <Button variant="hero" size="lg" className="w-full">
-                    Send Message
+                  <Button 
+                    variant="hero" 
+                    size="lg" 
+                    className="w-full"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>

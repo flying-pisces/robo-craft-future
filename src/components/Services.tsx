@@ -1,32 +1,59 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot, Factory, Smartphone } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { ContactService } from "@/services/contactService";
 import roboticsImage from "@/assets/robotics-service.jpg";
 import automationImage from "@/assets/automation-service.jpg";
 import electronicsImage from "@/assets/electronics-service.jpg";
 
 const Services = () => {
+  const { toast } = useToast();
+
+  const handleServiceInquiry = async (serviceType: 'robotics' | 'automation' | 'electronics') => {
+    try {
+      const result = await ContactService.submitServiceInquiry({
+        service_type: serviceType,
+        email: '', // Will be collected in a future modal/form
+        name: 'Anonymous Interest',
+        message: `Interested in ${serviceType} services`
+      });
+
+      if (result.success) {
+        toast({
+          title: "Interest Recorded!",
+          description: "Thank you for your interest. Please fill out our contact form for detailed inquiries.",
+        });
+      }
+    } catch (error) {
+      console.error('Service inquiry error:', error);
+    }
+  };
+
   const services = [
     {
       icon: <Bot className="h-8 w-8" />,
       title: "Robotics Engineering",
       description: "Advanced robotic systems design, development, and integration for industrial and commercial applications.",
       image: roboticsImage,
-      features: ["Custom Robot Design", "Motion Control Systems", "Vision Systems", "Safety Integration"]
+      features: ["Custom Robot Design", "Motion Control Systems", "Vision Systems", "Safety Integration"],
+      serviceType: 'robotics' as const
     },
     {
       icon: <Factory className="h-8 w-8" />,
       title: "Manufacturing Automation",
       description: "End-to-end automation solutions that optimize production efficiency and reduce operational costs.",
       image: automationImage,
-      features: ["Process Automation", "Quality Control", "Production Line Design", "SCADA Systems"]
+      features: ["Process Automation", "Quality Control", "Production Line Design", "SCADA Systems"],
+      serviceType: 'automation' as const
     },
     {
       icon: <Smartphone className="h-8 w-8" />,
       title: "Consumer Electronics",
       description: "Innovative electronic product development from concept to market-ready solutions.",
       image: electronicsImage,
-      features: ["Product Design", "PCB Development", "Firmware Programming", "Testing & Validation"]
+      features: ["Product Design", "PCB Development", "Firmware Programming", "Testing & Validation"],
+      serviceType: 'electronics' as const
     }
   ];
 
@@ -80,8 +107,12 @@ const Services = () => {
                   ))}
                 </ul>
                 
-                <Button variant="outline" className="w-full group-hover:bg-tech-blue group-hover:text-white group-hover:border-tech-blue transition-all">
-                  Learn More
+                <Button 
+                  variant="outline" 
+                  className="w-full group-hover:bg-tech-blue group-hover:text-white group-hover:border-tech-blue transition-all"
+                  onClick={() => handleServiceInquiry(service.serviceType)}
+                >
+                  Get Quote
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
