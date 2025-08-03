@@ -1,7 +1,7 @@
 # Welcome to your Lovable project
 
 ## Project info
-To be updated, will use github to host and link to squarespace domain www.sshrobotics.com
+SSH Robotics website - deployed via GitHub Pages to www.sshrobotics.com
 
 **URL**: https://lovable.dev/projects/d0d18f2b-79d3-43bc-9160-f91cc3327885
 
