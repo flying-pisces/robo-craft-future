@@ -9,20 +9,20 @@ const Contact = () => {
     {
       icon: <Mail className="h-5 w-5" />,
       title: "Email",
-      content: "info@engineeringservices.com",
+      content: "admin@sshrobotics.com",
       description: "Send us your project details"
     },
     {
       icon: <Phone className="h-5 w-5" />,
       title: "Phone",
-      content: "+1 (555) 123-4567",
+      content: "+1 925-366-0578",
       description: "Mon-Fri from 8am to 6pm"
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       title: "Location",
-      content: "123 Innovation Drive",
-      description: "Tech Valley, CA 94025"
+      content: "4462 Tosca Ct",
+      description: "Pleasanton, CA 94588"
     },
     {
       icon: <Clock className="h-5 w-5" />,
