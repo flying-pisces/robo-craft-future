@@ -6,7 +6,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { ContactService } from "@/services/contactService";
-import { useState } from "react";
+import { testSupabaseConnection } from "@/lib/testSupabase";
+import { useState, useEffect } from "react";
 
 interface ContactFormData {
   first_name: string;
@@ -27,6 +28,13 @@ const Contact = () => {
     reset,
     formState: { errors }
   } = useForm<ContactFormData>();
+
+  // Test Supabase connection on component mount
+  useEffect(() => {
+    testSupabaseConnection().then(result => {
+      console.log('Supabase test result:', result);
+    });
+  }, []);
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
