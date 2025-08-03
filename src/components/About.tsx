@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Users, Lightbulb, Target } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const values = [
@@ -49,9 +50,11 @@ const About = () => {
               that help businesses transform their operations and achieve their technological goals.
             </p>
             
-            <Button variant="default" size="lg" className="mb-8">
-              Learn About Our Team
-            </Button>
+            <Link to="/team">
+              <Button variant="default" size="lg" className="mb-8">
+                Learn About Our Team
+              </Button>
+            </Link>
             
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center p-4 bg-tech-light rounded-lg">
