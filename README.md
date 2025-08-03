@@ -1,7 +1,7 @@
 # Welcome to your Lovable project
 
 ## Project info
-SSH Robotics website - deployed via GitHub Pages to www.sshrobotics.com
+SSH Robotics website - deployed via GitHub Pages to www.sshrobotics.com with Supabase backend
 
 ## How can I edit this code?
 
