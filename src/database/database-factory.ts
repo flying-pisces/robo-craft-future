@@ -54,11 +54,11 @@ export class DatabaseFactory {
     
     // Validate the database type
     if (dbType && !['sqlite', 'supabase'].includes(dbType)) {
-      console.warn(`Invalid database type: ${dbType}. Falling back to supabase.`)
-      return 'supabase'
+      console.warn(`Invalid database type: ${dbType}. Falling back to SQLite.`)
+      return 'sqlite'
     }
     
-    return dbType || 'supabase' // Default to supabase
+    return dbType || 'sqlite' // Default to SQLite
   }
 
   /**

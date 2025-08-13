@@ -16,7 +16,11 @@ const PORT = process.env.PORT || 3001;
 const DB_PATH = process.env.DB_PATH || 'ssh-robotics.db';
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || ['http://localhost:8080', 'https://sshrobotics.com', 'https://www.sshrobotics.com'],
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Initialize SQLite database
