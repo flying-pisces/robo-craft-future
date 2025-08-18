@@ -44,4 +44,4 @@ export interface DatabaseProvider {
 }
 
 // Database provider types
-export type DatabaseType = 'supabase' | 'sqlite'
+export type DatabaseType = 'pocketbase' | 'sqlite'

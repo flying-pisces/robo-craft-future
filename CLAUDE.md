@@ -4,10 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SSH Robotics company website built as a React SPA with TypeScript, deployed to GitHub Pages at www.sshrobotics.com. The site includes a contact form with Supabase backend for lead generation.
+SSH Robotics company website built as a React SPA with TypeScript, deployed to GitHub Pages at www.sshrobotics.com. The site includes a contact form with PocketBase backend for lead generation.
 
 **Live URL**: https://www.sshrobotics.com  
-**Tech Stack**: React + TypeScript + Vite + Tailwind CSS + shadcn/ui + Supabase
+**Tech Stack**: React + TypeScript + Vite + Tailwind CSS + shadcn/ui + PocketBase
 
 ## Development Commands
 
@@ -41,17 +41,17 @@ npm run preview
 - **React Hook Form + Zod** for form validation
 
 ### Backend Integration
-- **Supabase** as backend-as-a-service for contact form submissions
-- Two main database tables:
+- **PocketBase** as backend-as-a-service for contact form submissions
+- Two main database collections:
   - `contact_submissions` - Full contact form data
   - `service_inquiries` - Service interest tracking from "Get Quote" buttons
-- Environment variables: `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`
+- Environment variables: `VITE_POCKETBASE_URL` and `VITE_DATABASE_TYPE`
 
 ### Key Files & Services
-- `src/lib/supabase.ts` - Database client configuration and TypeScript interfaces
+- `src/database/pocketbase/pocketbase-provider.ts` - PocketBase client configuration and implementation
+- `src/database/database-factory.ts` - Database provider factory for switching between PocketBase and SQLite
 - `src/services/contactService.ts` - Service layer with static methods for all database operations
-- `src/components/Contact.tsx` - Main contact form with Supabase integration
-- `supabase-schema.sql` - Database schema definition
+- `src/components/Contact.tsx` - Main contact form with database integration
 
 ### Component Architecture
 - Page components in `src/pages/`: Index, Team, NotFound
@@ -72,11 +72,11 @@ npm run preview
 
 ## Database Schema
 
-The Supabase backend uses these tables:
+The PocketBase backend uses these collections:
 - **contact_submissions**: Full contact form submissions with project details
 - **service_inquiries**: Quick service interest tracking from service cards
 
-Row Level Security is currently disabled for public form access.
+Both collections support the same data structure as defined in `src/types/database.ts`. The application also supports SQLite as an alternative backend via the database factory pattern.
 
 ## Development Notes
 

@@ -1,6 +1,6 @@
 import type { DatabaseProvider, DatabaseType } from '@/types/database'
 import { SQLiteAPIProvider } from './sqlite/sqlite-api-provider'
-import { SupabaseProvider } from './supabase/supabase-provider'
+import { PocketBaseProvider } from './pocketbase/pocketbase-provider'
 
 /**
  * Database Factory
@@ -39,8 +39,8 @@ export class DatabaseFactory {
     switch (dbType) {
       case 'sqlite':
         return new SQLiteAPIProvider()
-      case 'supabase':
-        return new SupabaseProvider()
+      case 'pocketbase':
+        return new PocketBaseProvider()
       default:
         throw new Error(`Unsupported database type: ${dbType}`)
     }
@@ -53,12 +53,12 @@ export class DatabaseFactory {
     const dbType = import.meta.env.VITE_DATABASE_TYPE as DatabaseType
     
     // Validate the database type
-    if (dbType && !['sqlite', 'supabase'].includes(dbType)) {
-      console.warn(`Invalid database type: ${dbType}. Falling back to SQLite.`)
-      return 'sqlite'
+    if (dbType && !['sqlite', 'pocketbase'].includes(dbType)) {
+      console.warn(`Invalid database type: ${dbType}. Falling back to PocketBase.`)
+      return 'pocketbase'
     }
     
-    return dbType || 'sqlite' // Default to SQLite
+    return dbType || 'pocketbase' // Default to PocketBase
   }
 
   /**
