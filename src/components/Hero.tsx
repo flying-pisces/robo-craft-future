@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-robotics.jpg";
+import { Link } from "react-router-dom";
+import heroImage from "@/assets/humanoid-back.jpg";
 
 const Hero = () => {
   return (
@@ -9,10 +10,10 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
-          alt="Tactile sensing technology for robots"
-          className="w-full h-full object-cover"
+          alt="Humanoid robot with TactoSkin tactile sensing skin"
+          className="w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-tech-dark/95 via-tech-dark/80 to-tech-dark/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-tech-dark/90 via-tech-dark/70 to-tech-dark/40"></div>
       </div>
 
       {/* Content */}
@@ -39,13 +40,15 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="hero" size="lg" className="text-lg px-8 py-4">
-              Request a Demo
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/products">
+              <Button variant="hero" size="lg" className="text-lg px-8 py-4">
+                View Products
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
 
             <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-tech-dark">
-              View Technology
+              Request Demo
             </Button>
           </div>
 
