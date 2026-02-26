@@ -4,9 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SSH Robotics company website built as a React SPA with TypeScript, deployed to GitHub Pages at www.sshrobotics.com. The site includes a contact form with PocketBase backend for lead generation.
+TactoSkin company website built as a React SPA with TypeScript. TactoSkin provides modular tactile sensing skin for robots - the "missing modality" that gives robots the sense of touch. The site showcases our hex module product lines and includes a contact form for partnership inquiries.
 
-**Live URL**: https://www.sshrobotics.com  
 **Tech Stack**: React + TypeScript + Vite + Tailwind CSS + shadcn/ui + PocketBase
 
 ## Development Commands
@@ -43,8 +42,8 @@ npm run preview
 ### Backend Integration
 - **PocketBase** as backend-as-a-service for contact form submissions
 - Two main database collections:
-  - `contact_submissions` - Full contact form data
-  - `service_inquiries` - Service interest tracking from "Get Quote" buttons
+  - `contact_submissions` - Full contact form data (partnership inquiries)
+  - `service_inquiries` - Product interest tracking from "Request Specs" buttons
 - Environment variables: `VITE_POCKETBASE_URL` and `VITE_DATABASE_TYPE`
 
 ### Key Files & Services
@@ -55,17 +54,22 @@ npm run preview
 
 ### Component Architecture
 - Page components in `src/pages/`: Index, Team, NotFound
-- Feature components in `src/components/`: Hero, Services, About, Contact
+- Feature components in `src/components/`: Hero, Services (Products), About, Contact
 - Utility hooks in `src/hooks/`: use-mobile, use-toast
 - All UI components follow shadcn/ui patterns with consistent prop interfaces
+
+### Product Lines (Services.tsx)
+- **H-Series** (Hand): 361 sensels/cm², 0.1g sensitivity, 500-1000Hz, ~$800/pair
+- **B-Series** (Body): 4-50 sensels/cm², matte silicone finish, ~$1,800 full coverage
+- **F-Series** (Foot): Reinforced TPU, 200K+ cycles, ~$400/pair
 
 ### Routing
 - SPA routing with React Router
 - Custom routes must be added ABOVE the catch-all "*" route in App.tsx
-- Team page route exists but content needs development
+- Team page shows founding team members
 
 ### Deployment
-- GitHub Pages deployment with custom domain
+- GitHub Pages deployment
 - Environment variables configured in GitHub secrets
 - SSL certificate auto-configured
 - Build artifacts in `dist/` directory
@@ -73,8 +77,8 @@ npm run preview
 ## Database Schema
 
 The PocketBase backend uses these collections:
-- **contact_submissions**: Full contact form submissions with project details
-- **service_inquiries**: Quick service interest tracking from service cards
+- **contact_submissions**: Partnership and pilot program inquiries
+- **service_inquiries**: Quick product interest tracking from product cards
 
 Both collections support the same data structure as defined in `src/types/database.ts`. The application also supports SQLite as an alternative backend via the database factory pattern.
 
@@ -88,8 +92,8 @@ Both collections support the same data structure as defined in `src/types/databa
 
 ## Future Enhancement Areas
 
-- Admin dashboard for viewing submissions
-- Email notifications for new inquiries  
-- Enhanced security with proper RLS policies
+- Product datasheet downloads
+- OEM partner portal
+- Technical documentation
+- Demo request scheduling
 - Analytics integration
-- Team member profiles for Team page

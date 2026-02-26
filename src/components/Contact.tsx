@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Globe, MapPin, Clock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { ContactService } from "@/services/contactService";
 import { useState } from "react";
@@ -20,7 +20,7 @@ interface ContactFormData {
 const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const {
     register,
     handleSubmit,
@@ -44,7 +44,7 @@ const Contact = () => {
       if (result.success) {
         toast({
           title: "Message Sent!",
-          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+          description: "Thank you for your interest. We'll be in touch soon.",
         });
         reset();
       } else {
@@ -65,26 +65,26 @@ const Contact = () => {
     {
       icon: <Mail className="h-5 w-5" />,
       title: "Email",
-      content: "admin@sshrobotics.com",
-      description: "Send us your project details"
+      content: "info@tactoskin.com",
+      description: "For partnerships and inquiries"
     },
     {
-      icon: <Phone className="h-5 w-5" />,
-      title: "Phone",
-      content: "+1 925-366-0578",
-      description: "Mon-Fri from 8am to 6pm"
+      icon: <Globe className="h-5 w-5" />,
+      title: "Website",
+      content: "tactoskin.com",
+      description: "Product specs and updates"
     },
     {
       icon: <MapPin className="h-5 w-5" />,
       title: "Location",
-      content: "4462 Tosca Ct",
-      description: "Pleasanton, CA 94588"
+      content: "San Francisco Bay Area",
+      description: "California, USA"
     },
     {
       icon: <Clock className="h-5 w-5" />,
       title: "Response Time",
-      content: "< 24 Hours",
-      description: "We'll get back to you quickly"
+      content: "< 48 Hours",
+      description: "For qualified inquiries"
     }
   ];
 
@@ -93,14 +93,14 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Ready to Start Your
+            Let's Build the Sense of
             <span className="block bg-gradient-to-r from-tech-blue to-tech-cyan bg-clip-text text-transparent">
-              Next Project?
+              Touch, Together
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Let's discuss how our engineering expertise can help bring your vision to life. 
-            Get in touch for a consultation.
+            Interested in integrating TactoSkin with your robotics platform?
+            We're looking for OEM partners and pilot collaborators.
           </p>
         </div>
 
@@ -126,14 +126,14 @@ const Contact = () => {
                     </div>
                   </div>
                 ))}
-                
+
                 <div className="pt-6 border-t border-border">
-                  <h3 className="font-semibold text-foreground mb-2">Project Types</h3>
+                  <h3 className="font-semibold text-foreground mb-2">We're Looking For</h3>
                   <div className="space-y-1 text-sm text-muted-foreground">
-                    <div>• Robotics Design & Integration</div>
-                    <div>• Manufacturing Automation</div>
-                    <div>• Consumer Electronics Development</div>
-                    <div>• Custom Engineering Solutions</div>
+                    <div>OEM Integration Partners</div>
+                    <div>Pilot Program Participants</div>
+                    <div>Research Collaborators</div>
+                    <div>Strategic Investors</div>
                   </div>
                 </div>
               </CardContent>
@@ -145,7 +145,7 @@ const Contact = () => {
             <Card className="border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-foreground">
-                  Send Us a Message
+                  Request Information
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -155,9 +155,9 @@ const Contact = () => {
                       <label className="block text-sm font-medium text-foreground mb-2">
                         First Name *
                       </label>
-                      <Input 
+                      <Input
                         {...register("first_name", { required: "First name is required" })}
-                        placeholder="John" 
+                        placeholder="John"
                         className="transition-all duration-300 focus:border-tech-blue"
                       />
                       {errors.first_name && (
@@ -168,9 +168,9 @@ const Contact = () => {
                       <label className="block text-sm font-medium text-foreground mb-2">
                         Last Name *
                       </label>
-                      <Input 
+                      <Input
                         {...register("last_name", { required: "Last name is required" })}
-                        placeholder="Doe" 
+                        placeholder="Doe"
                         className="transition-all duration-300 focus:border-tech-blue"
                       />
                       {errors.last_name && (
@@ -178,22 +178,22 @@ const Contact = () => {
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
                         Email *
                       </label>
-                      <Input 
-                        {...register("email", { 
+                      <Input
+                        {...register("email", {
                           required: "Email is required",
                           pattern: {
                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                             message: "Invalid email address"
                           }
                         })}
-                        type="email" 
-                        placeholder="john@example.com" 
+                        type="email"
+                        placeholder="john@company.com"
                         className="transition-all duration-300 focus:border-tech-blue"
                       />
                       {errors.email && (
@@ -204,40 +204,41 @@ const Contact = () => {
                       <label className="block text-sm font-medium text-foreground mb-2">
                         Company
                       </label>
-                      <Input 
+                      <Input
                         {...register("company")}
-                        placeholder="Your Company" 
+                        placeholder="Your Company"
                         className="transition-all duration-300 focus:border-tech-blue"
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Project Type *
+                      Interest Type *
                     </label>
-                    <select 
-                      {...register("project_type", { required: "Please select a project type" })}
+                    <select
+                      {...register("project_type", { required: "Please select an interest type" })}
                       className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground transition-all duration-300 focus:border-tech-blue focus:outline-none"
                     >
-                      <option value="">Select a service</option>
-                      <option value="Robotics Engineering">Robotics Engineering</option>
-                      <option value="Manufacturing Automation">Manufacturing Automation</option>
-                      <option value="Consumer Electronics">Consumer Electronics</option>
-                      <option value="Custom Solution">Custom Solution</option>
+                      <option value="">Select your interest</option>
+                      <option value="OEM Integration">OEM Integration</option>
+                      <option value="Pilot Program">Pilot Program</option>
+                      <option value="Research Collaboration">Research Collaboration</option>
+                      <option value="Investment">Investment Inquiry</option>
+                      <option value="General">General Information</option>
                     </select>
                     {errors.project_type && (
                       <p className="text-red-500 text-sm mt-1">{errors.project_type.message}</p>
                     )}
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      Project Description *
+                      Message *
                     </label>
-                    <Textarea 
-                      {...register("project_description", { required: "Project description is required" })}
-                      placeholder="Tell us about your project requirements..."
+                    <Textarea
+                      {...register("project_description", { required: "Message is required" })}
+                      placeholder="Tell us about your robotics platform and how you'd like to work together..."
                       rows={5}
                       className="transition-all duration-300 focus:border-tech-blue"
                     />
@@ -245,10 +246,10 @@ const Contact = () => {
                       <p className="text-red-500 text-sm mt-1">{errors.project_description.message}</p>
                     )}
                   </div>
-                  
-                  <Button 
-                    variant="hero" 
-                    size="lg" 
+
+                  <Button
+                    variant="hero"
+                    size="lg"
                     className="w-full"
                     type="submit"
                     disabled={isSubmitting}

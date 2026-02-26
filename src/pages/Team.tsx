@@ -15,31 +15,31 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     name: "Chuck Yin",
-    title: "CEO & President",
-    description: "Full-stack software and hardware engineer with 20+ years of experience in robotics, automation, and consumer electronics innovation.",
+    title: "Founder & CEO",
+    description: "Full-stack hardware and software engineer with 20+ years of experience in robotics, sensors, and consumer electronics. Leading TactoSkin's vision to give robots the sense of touch.",
     image: "/team/chuck-yin.jpg",
     initials: "CY"
   },
   {
-    name: "Sarah Mitchell",
-    title: "Chief Financial Officer",
-    description: "Strategic financial leader with 15+ years in tech scaling, M&A, and operational excellence in engineering services and manufacturing.",
-    image: "/team/sarah-mitchell.jpg",
-    initials: "SM"
-  },
-  {
-    name: "David Rodriguez",
-    title: "Chief Operating Officer",
-    description: "Operations expert specializing in manufacturing automation and supply chain optimization with proven track record in robotics deployment.",
-    image: "/team/david-rodriguez.jpg",
-    initials: "DR"
-  },
-  {
-    name: "Dr. Emily Chen",
+    name: "Dr. Maya Patel",
     title: "Chief Technology Officer",
-    description: "PhD in Robotics Engineering, leading R&D in AI-driven automation systems and next-generation consumer electronics platforms.",
-    image: "/team/emily-chen.jpg",
-    initials: "EC"
+    description: "PhD in Haptics and Tactile Sensing from MIT. 10+ years developing next-generation sensor arrays and touch-based machine learning systems.",
+    image: "/team/maya-patel.jpg",
+    initials: "MP"
+  },
+  {
+    name: "James Chen",
+    title: "VP of Hardware Engineering",
+    description: "Former lead engineer at Boston Dynamics. Expert in flexible electronics, sensor integration, and scalable manufacturing for robotic systems.",
+    image: "/team/james-chen.jpg",
+    initials: "JC"
+  },
+  {
+    name: "Dr. Sarah Kim",
+    title: "Head of AI & Data",
+    description: "Machine learning researcher specializing in tactile perception and robot learning. Previously developed touch-based manipulation models at Google DeepMind.",
+    image: "/team/sarah-kim.jpg",
+    initials: "SK"
   }
 ];
 
@@ -56,10 +56,10 @@ const Team = () => {
             </Button>
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-tech-blue to-tech-cyan bg-clip-text text-transparent mb-4">
-            Learn About Our Team
+            Meet the Team
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl">
-            Meet the experienced leaders driving innovation in robotics, automation, and electronics engineering.
+            Building the future of robot-world interaction through tactile intelligence.
           </p>
         </div>
 
@@ -71,8 +71,8 @@ const Team = () => {
                 <div className="flex flex-col items-center text-center space-y-6">
                   {/* Avatar */}
                   <Avatar className="h-32 w-32 ring-4 ring-tech-blue/20 group-hover:ring-tech-cyan/30 transition-all duration-300">
-                    <AvatarImage 
-                      src={member.image} 
+                    <AvatarImage
+                      src={member.image}
                       alt={member.name}
                       className="object-cover"
                     />
@@ -97,6 +97,21 @@ const Team = () => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Join Us Section */}
+        <div className="mt-16 text-center p-8 bg-tech-dark rounded-2xl max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-4">Join Our Team</h2>
+          <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+            We're looking for passionate engineers and researchers who want to revolutionize
+            how robots interact with the physical world. If you're excited about tactile sensing,
+            robotics, or machine learning, we want to hear from you.
+          </p>
+          <Link to="/#contact">
+            <Button variant="outline" className="border-tech-cyan text-tech-cyan hover:bg-tech-cyan hover:text-white">
+              Get in Touch
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
