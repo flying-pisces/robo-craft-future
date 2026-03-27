@@ -94,7 +94,12 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-up': 'fade-up 0.6s ease-out forwards',
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'blink': 'blink 1s step-end infinite',
+				'glitch': 'glitch-1 8s infinite',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

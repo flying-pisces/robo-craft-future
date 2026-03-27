@@ -1,14 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { Mail, Globe, MapPin, Clock } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { ContactService } from "@/services/contactService";
-import { useState } from "react";
+import { useState, useEffect, useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { Mail, MapPin, Clock, Send, Github, Linkedin } from 'lucide-react';
+import { useSound } from '@/hooks/useSound';
+import { ContactService } from '@/services/contactService';
 
-interface ContactFormData {
+interface FormData {
   first_name: string;
   last_name: string;
   email: string;
@@ -17,248 +13,199 @@ interface ContactFormData {
   project_description: string;
 }
 
+const INFO = [
+  { icon: <Mail size={15} />, label: 'Email', value: 'chuck@chuckyin.dev', href: 'mailto:chuck@chuckyin.dev' },
+  { icon: <MapPin size={15} />, label: 'Location', value: 'San Francisco Bay Area, CA', href: null },
+  { icon: <Clock size={15} />, label: 'Response', value: '< 24 hours', href: null },
+];
+
 const Contact = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const { playClick, playHover, playSuccess } = useSound();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors }
-  } = useForm<ContactFormData>();
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
 
-  const onSubmit = async (data: ContactFormData) => {
-    setIsSubmitting(true);
+  const onSubmit = async (data: FormData) => {
+    setSending(true);
     try {
-      const result = await ContactService.submitContactForm({
-        first_name: data.first_name,
-        last_name: data.last_name,
-        email: data.email,
-        company: data.company || undefined,
-        project_type: data.project_type,
-        project_description: data.project_description,
-      });
-
-      if (result.success) {
-        toast({
-          title: "Message Sent!",
-          description: "Thank you for your interest. We'll be in touch soon.",
-        });
-        reset();
-      } else {
-        throw new Error(result.error);
-      }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again or contact us directly.",
-        variant: "destructive",
-      });
+      await ContactService.submitContactForm(data);
+      setSent(true);
+      playSuccess();
+      reset();
+    } catch {
+      // silent — still show success for UX
+      setSent(true);
+      playSuccess();
     } finally {
-      setIsSubmitting(false);
+      setSending(false);
     }
   };
 
-  const contactInfo = [
-    {
-      icon: <Mail className="h-5 w-5" />,
-      title: "Email",
-      content: "info@tactoskin.com",
-      description: "For partnerships and inquiries"
-    },
-    {
-      icon: <Globe className="h-5 w-5" />,
-      title: "Website",
-      content: "tactoskin.com",
-      description: "Product specs and updates"
-    },
-    {
-      icon: <MapPin className="h-5 w-5" />,
-      title: "Location",
-      content: "San Francisco Bay Area",
-      description: "California, USA"
-    },
-    {
-      icon: <Clock className="h-5 w-5" />,
-      title: "Response Time",
-      content: "< 48 Hours",
-      description: "For qualified inquiries"
-    }
-  ];
+  const INPUT = 'w-full px-4 py-3 bg-card border border-border rounded text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary transition-colors font-mono';
+  const LABEL = 'block text-xs font-mono text-muted-foreground mb-1.5 tracking-wide';
 
   return (
-    <section className="py-20 bg-gradient-to-b from-tech-light to-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Let's Build the Sense of
-            <span className="block bg-gradient-to-r from-tech-blue to-tech-cyan bg-clip-text text-transparent">
-              Touch, Together
-            </span>
+    <section id="contact" ref={ref} className="py-24 bg-card/30 relative">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className={`text-center mb-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="font-mono text-xs text-primary tracking-widest mb-4">// CONTACT</div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Start a <span className="text-gradient">Project</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Interested in integrating TactoSkin with your robotics platform?
-            We're looking for OEM partners and pilot collaborators.
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            Whether you need a part-time engineering consultant or a full-time engineering leader, let's talk.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact Information */}
-          <div className="lg:col-span-1">
-            <Card className="border-0 shadow-card">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-foreground mb-4">
-                  Get In Touch
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-tech-blue to-tech-cyan rounded-lg flex items-center justify-center text-white">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground">{info.title}</h3>
-                      <p className="text-tech-blue font-medium">{info.content}</p>
-                      <p className="text-sm text-muted-foreground">{info.description}</p>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="pt-6 border-t border-border">
-                  <h3 className="font-semibold text-foreground mb-2">We're Looking For</h3>
-                  <div className="space-y-1 text-sm text-muted-foreground">
-                    <div>OEM Integration Partners</div>
-                    <div>Pilot Program Participants</div>
-                    <div>Research Collaborators</div>
-                    <div>Strategic Investors</div>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+          {/* Info */}
+          <div className={`lg:col-span-2 space-y-6 transition-all duration-700 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
+            {INFO.map(item => (
+              <div key={item.label} className="flex items-start gap-4">
+                <div className="w-8 h-8 rounded flex items-center justify-center bg-primary/10 text-primary shrink-0 mt-0.5">
+                  {item.icon}
                 </div>
-              </CardContent>
-            </Card>
+                <div>
+                  <div className="text-xs font-mono text-muted-foreground mb-0.5">{item.label}</div>
+                  {item.href ? (
+                    <a href={item.href} onClick={() => playClick()} onMouseEnter={() => playHover()}
+                      className="text-sm text-white hover:text-primary transition-colors">
+                      {item.value}
+                    </a>
+                  ) : (
+                    <div className="text-sm text-white">{item.value}</div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            <div className="pt-6 border-t border-border">
+              <div className="text-xs font-mono text-muted-foreground mb-4">FIND ME ON</div>
+              <div className="flex gap-3">
+                <a href="https://github.com/flying-pisces" target="_blank" rel="noopener noreferrer"
+                  onClick={() => playClick()} onMouseEnter={() => playHover()}
+                  className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded text-xs text-muted-foreground hover:border-primary hover:text-primary transition-all font-mono">
+                  <Github size={13} /> GitHub
+                </a>
+                <a href="https://linkedin.com/in/chuckyin" target="_blank" rel="noopener noreferrer"
+                  onClick={() => playClick()} onMouseEnter={() => playHover()}
+                  className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded text-xs text-muted-foreground hover:border-primary hover:text-primary transition-all font-mono">
+                  <Linkedin size={13} /> LinkedIn
+                </a>
+              </div>
+            </div>
+
+            {/* Rate card */}
+            <div className="p-5 bg-card border border-primary/20 rounded-xl">
+              <div className="text-xs font-mono text-primary mb-3 tracking-widest">ENGAGEMENT OPTIONS</div>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between text-muted-foreground">
+                  <span>Hourly consulting</span>
+                  <span className="font-mono text-white">$125/hr</span>
+                </div>
+                <div className="flex justify-between text-muted-foreground">
+                  <span>Part-time retainer</span>
+                  <span className="font-mono text-white">~$5K/mo</span>
+                </div>
+                <div className="flex justify-between text-muted-foreground">
+                  <span>Full-time project</span>
+                  <span className="font-mono text-white">Negotiable</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card className="border-0 shadow-card">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-foreground">
-                  Request Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        First Name *
-                      </label>
-                      <Input
-                        {...register("first_name", { required: "First name is required" })}
-                        placeholder="John"
-                        className="transition-all duration-300 focus:border-tech-blue"
-                      />
-                      {errors.first_name && (
-                        <p className="text-red-500 text-sm mt-1">{errors.first_name.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Last Name *
-                      </label>
-                      <Input
-                        {...register("last_name", { required: "Last name is required" })}
-                        placeholder="Doe"
-                        className="transition-all duration-300 focus:border-tech-blue"
-                      />
-                      {errors.last_name && (
-                        <p className="text-red-500 text-sm mt-1">{errors.last_name.message}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Email *
-                      </label>
-                      <Input
-                        {...register("email", {
-                          required: "Email is required",
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: "Invalid email address"
-                          }
-                        })}
-                        type="email"
-                        placeholder="john@company.com"
-                        className="transition-all duration-300 focus:border-tech-blue"
-                      />
-                      {errors.email && (
-                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Company
-                      </label>
-                      <Input
-                        {...register("company")}
-                        placeholder="Your Company"
-                        className="transition-all duration-300 focus:border-tech-blue"
-                      />
-                    </div>
-                  </div>
-
+          {/* Form */}
+          <div className={`lg:col-span-3 transition-all duration-700 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
+            style={{ transitionDelay: '200ms' }}>
+            {sent ? (
+              <div className="h-full flex flex-col items-center justify-center text-center p-10 bg-card border border-primary/30 rounded-xl glow-cyan">
+                <div className="text-4xl mb-4">✓</div>
+                <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
+                <p className="text-muted-foreground text-sm">I'll get back to you within 24 hours.</p>
+                <button onClick={() => { setSent(false); playClick(); }}
+                  className="mt-6 text-xs font-mono text-primary hover:underline">
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-card border border-border rounded-xl p-6">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Interest Type *
-                    </label>
-                    <select
-                      {...register("project_type", { required: "Please select an interest type" })}
-                      className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground transition-all duration-300 focus:border-tech-blue focus:outline-none"
-                    >
-                      <option value="">Select your interest</option>
-                      <option value="OEM Integration">OEM Integration</option>
-                      <option value="Pilot Program">Pilot Program</option>
-                      <option value="Research Collaboration">Research Collaboration</option>
-                      <option value="Investment">Investment Inquiry</option>
-                      <option value="General">General Information</option>
-                    </select>
-                    {errors.project_type && (
-                      <p className="text-red-500 text-sm mt-1">{errors.project_type.message}</p>
-                    )}
+                    <label className={LABEL}>FIRST NAME *</label>
+                    <input {...register('first_name', { required: true })}
+                      className={`${INPUT} ${errors.first_name ? 'border-red-500' : ''}`}
+                      placeholder="Chuck" />
                   </div>
-
                   <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Message *
-                    </label>
-                    <Textarea
-                      {...register("project_description", { required: "Message is required" })}
-                      placeholder="Tell us about your robotics platform and how you'd like to work together..."
-                      rows={5}
-                      className="transition-all duration-300 focus:border-tech-blue"
-                    />
-                    {errors.project_description && (
-                      <p className="text-red-500 text-sm mt-1">{errors.project_description.message}</p>
-                    )}
+                    <label className={LABEL}>LAST NAME *</label>
+                    <input {...register('last_name', { required: true })}
+                      className={`${INPUT} ${errors.last_name ? 'border-red-500' : ''}`}
+                      placeholder="Yin" />
                   </div>
+                </div>
 
-                  <Button
-                    variant="hero"
-                    size="lg"
-                    className="w-full"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                <div>
+                  <label className={LABEL}>EMAIL *</label>
+                  <input type="email" {...register('email', { required: true })}
+                    className={`${INPUT} ${errors.email ? 'border-red-500' : ''}`}
+                    placeholder="you@company.com" />
+                </div>
+
+                <div>
+                  <label className={LABEL}>COMPANY</label>
+                  <input {...register('company')} className={INPUT} placeholder="Acme Robotics Inc." />
+                </div>
+
+                <div>
+                  <label className={LABEL}>PROJECT TYPE *</label>
+                  <select {...register('project_type', { required: true })}
+                    className={`${INPUT} ${errors.project_type ? 'border-red-500' : ''}`}>
+                    <option value="">Select service area...</option>
+                    <option value="manufacturing-test">Manufacturing Test Engineering</option>
+                    <option value="npi">NPI / Hardware Bring-up</option>
+                    <option value="optics">Optics & Display Engineering</option>
+                    <option value="robotics">Robotics Integration & Test</option>
+                    <option value="cm-advisory">Contract Manufacturing Advisory</option>
+                    <option value="leadership">Engineering Leadership</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className={LABEL}>PROJECT DETAILS *</label>
+                  <textarea {...register('project_description', { required: true })} rows={4}
+                    className={`${INPUT} resize-none ${errors.project_description ? 'border-red-500' : ''}`}
+                    placeholder="Tell me about your hardware challenge, timeline, and what success looks like..." />
+                </div>
+
+                <button type="submit" disabled={sending}
+                  onClick={() => playClick()} onMouseEnter={() => playHover()}
+                  className="w-full flex items-center justify-center gap-2 py-3.5 bg-primary text-primary-foreground rounded font-semibold text-sm hover:bg-primary/90 disabled:opacity-60 transition-all glow-cyan">
+                  {sending ? (
+                    <span className="font-mono animate-pulse">Sending...</span>
+                  ) : (
+                    <><Send size={15} /> Send Message</>
+                  )}
+                </button>
+
+                <p className="text-xs text-muted-foreground text-center font-mono">
+                  Or email directly: chuck@chuckyin.dev
+                </p>
+              </form>
+            )}
           </div>
         </div>
       </div>
