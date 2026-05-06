@@ -99,7 +99,7 @@ const Contact = () => {
                   className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded text-xs text-muted-foreground hover:border-primary hover:text-primary transition-all font-mono">
                   <Github size={13} /> GitHub
                 </a>
-                <a href="https://linkedin.com/in/chuckyin" target="_blank" rel="noopener noreferrer"
+                <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer"
                   onClick={() => playClick()} onMouseEnter={() => playHover()}
                   className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded text-xs text-muted-foreground hover:border-primary hover:text-primary transition-all font-mono">
                   <Linkedin size={13} /> LinkedIn

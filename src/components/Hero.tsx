@@ -174,7 +174,7 @@ const Hero = () => {
             <Github size={14} /> flying-pisces
           </a>
           <span className="text-border self-center">|</span>
-          <a href="https://linkedin.com/in/chuckyin" target="_blank" rel="noopener noreferrer"
+          <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer"
             onClick={() => playClick()} onMouseEnter={() => playHover()}
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
             <Linkedin size={14} /> chuckyin

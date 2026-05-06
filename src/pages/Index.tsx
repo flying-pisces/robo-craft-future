@@ -187,7 +187,7 @@ const Index = () => {
             {' · '}
             <a href="https://github.com/flying-pisces" target="_blank" rel="noopener noreferrer">Github</a>
             {' · '}
-            <a href="https://linkedin.com/in/chuckyin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             {' · '}
             <a href="mailto:chuck@chuckyin.dev">Email</a>
           </div>

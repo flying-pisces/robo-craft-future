@@ -23,7 +23,7 @@ const Footer = () => {
               className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-all">
               <Github size={14} />
             </a>
-            <a href="https://linkedin.com/in/chuckyin" target="_blank" rel="noopener noreferrer"
+            <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer"
               onClick={() => playClick()} onMouseEnter={() => playHover()}
               className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-all">
               <Linkedin size={14} />
