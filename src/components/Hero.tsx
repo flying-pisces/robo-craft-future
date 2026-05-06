@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { ArrowDown, Download, Briefcase, Github, Linkedin } from 'lucide-react';
+import { ArrowDown, Download, Briefcase, Github, Linkedin, Lock } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
 
 const ROLES = [
@@ -159,11 +159,11 @@ const Hero = () => {
             <Briefcase size={16} />
             Hire Me — $125/hr
           </button>
-          <button onClick={() => scrollTo('#resume')} onMouseEnter={() => playHover()}
+          <a href="/Chuck_Yin_Resume_2026.pdf" download onClick={() => playClick()} onMouseEnter={() => playHover()}
             className="flex items-center justify-center gap-2 px-8 py-3.5 border border-border text-foreground rounded font-semibold text-sm hover:border-primary hover:text-primary transition-all">
             <Download size={16} />
-            View Resume
-          </button>
+            Download Resume
+          </a>
         </div>
 
         <div className={`flex justify-center gap-6 mb-16 ${enter(600)}`}
@@ -177,7 +177,13 @@ const Hero = () => {
           <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer"
             onClick={() => playClick()} onMouseEnter={() => playHover()}
             className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors font-mono">
-            <Linkedin size={14} /> chuckyin
+            <Linkedin size={14} /> yeyin
+          </a>
+          <span className="text-border self-center">|</span>
+          <a href="/dash/" onClick={() => playClick()} onMouseEnter={() => playHover()}
+            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors font-mono"
+            title="Admin portal — login required">
+            <Lock size={14} /> admin
           </a>
         </div>
 

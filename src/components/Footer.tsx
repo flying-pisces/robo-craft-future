@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Lock, Download } from 'lucide-react';
 import { useSound } from '@/hooks/useSound';
 
 const Footer = () => {
@@ -30,8 +30,21 @@ const Footer = () => {
             </a>
             <a href="mailto:chuck@chuckyin.dev"
               onClick={() => playClick()} onMouseEnter={() => playHover()}
-              className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-all">
+              className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-all"
+              title="Email">
               <Mail size={14} />
+            </a>
+            <a href="/Chuck_Yin_Resume_2026.pdf" download
+              onClick={() => playClick()} onMouseEnter={() => playHover()}
+              className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-all"
+              title="Download Resume (PDF)">
+              <Download size={14} />
+            </a>
+            <a href="/dash/"
+              onClick={() => playClick()} onMouseEnter={() => playHover()}
+              className="w-8 h-8 flex items-center justify-center rounded border border-border text-muted-foreground hover:border-primary hover:text-primary transition-all"
+              title="Admin portal — login required">
+              <Lock size={14} />
             </a>
           </div>
 
