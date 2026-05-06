@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OTW · CORP Pipeline</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  .pill { display:inline-flex; align-items:center; padding:2px 8px; border-radius:9999px; font-size:11px; font-weight:600; }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+<header class="bg-white border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold tracking-tight">OTW · CORP Pipeline</h1>
+      <p class="text-xs text-slate-500 mt-0.5">Chuck Yin · 2026 corporate hardware/manufacturing track · last updated <span id="updated">2026-05-05</span></p>
+    </div>
+    <nav class="flex gap-2 text-xs">
+      <a href="./eir.html" class="px-3 py-1.5 rounded-md bg-white border border-slate-300 hover:bg-slate-100">EIR →</a>
+      <a href="https://github.com/flying-pisces/otw/blob/main/CORP/applications.csv" class="px-3 py-1.5 rounded-md bg-slate-900 text-white hover:bg-slate-700">applications.csv</a>
+      <a href="https://github.com/flying-pisces/otw/tree/main/CORP" class="px-3 py-1.5 rounded-md bg-white border border-slate-300 hover:bg-slate-100">CORP/ folder</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-6 space-y-8">
+
+  <!-- Snapshot stats -->
+  <section class="grid grid-cols-2 md:grid-cols-5 gap-3">
+    <div class="bg-white rounded-xl border border-slate-200 p-4"><div class="text-xs text-slate-500">Total tracked</div><div class="text-2xl font-bold">31</div></div>
+    <div class="bg-white rounded-xl border border-emerald-200 p-4"><div class="text-xs text-emerald-700">Live (in process)</div><div class="text-2xl font-bold text-emerald-700">7</div></div>
+    <div class="bg-white rounded-xl border border-blue-200 p-4"><div class="text-xs text-blue-700">Applied</div><div class="text-2xl font-bold text-blue-700">14</div></div>
+    <div class="bg-white rounded-xl border border-amber-200 p-4"><div class="text-xs text-amber-700">New / not sent</div><div class="text-2xl font-bold text-amber-700">6</div></div>
+    <div class="bg-white rounded-xl border border-rose-200 p-4"><div class="text-xs text-rose-700">Rejected</div><div class="text-2xl font-bold text-rose-700">4</div></div>
+  </section>
+
+  <!-- Active pipeline -->
+  <section>
+    <div class="flex items-baseline justify-between mb-3">
+      <h2 class="text-sm font-semibold text-emerald-700 uppercase tracking-wide">🟢 Live — in process</h2>
+      <span class="text-xs text-slate-400">Highest priority — nurture these</span>
+    </div>
+    <div class="overflow-x-auto rounded-xl border border-emerald-200 bg-white">
+    <table class="w-full text-sm">
+      <thead class="bg-emerald-50 text-emerald-900">
+        <tr>
+          <th class="text-left px-4 py-2 font-medium">Company / Role</th>
+          <th class="text-left px-4 py-2 font-medium">Stage</th>
+          <th class="text-left px-4 py-2 font-medium">Salary</th>
+          <th class="text-left px-4 py-2 font-medium">Score</th>
+          <th class="text-left px-4 py-2 font-medium">Notes</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">Nvidia</div><div class="text-xs text-slate-500">Manager Structural Test Engineering</div></td>
+          <td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">Offer / References</span></td>
+          <td class="px-4 py-3 text-slate-700">$184K–$287.5K</td>
+          <td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">95</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">Reference checks underway. Top of pipeline.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">Etched</div><div class="text-xs text-slate-500">Manufacturing Engineering Lead</div></td>
+          <td class="px-4 py-3"><span class="pill bg-amber-100 text-amber-800">Resume Requested</span></td>
+          <td class="px-4 py-3 text-slate-700">Equity at $5B val.</td>
+          <td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">82</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">Tom Sherry inbound LinkedIn. Send resume post-Ampere.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">Ampere Computing</div><div class="text-xs text-slate-500">Director, HW Platform Engineering</div></td>
+          <td class="px-4 py-3"><span class="pill bg-purple-100 text-purple-800">Phone Screen Apr 27</span></td>
+          <td class="px-4 py-3 text-slate-700">$279.5K–$440K</td>
+          <td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">55</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">Mitrajit Chatterjee 1 PM + Alex Gregory 7 PM. Recruiter Tiara.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">PacBio</div><div class="text-xs text-slate-500">Sr Mgr / Assoc Director, SW Platform Eng</div></td>
+          <td class="px-4 py-3"><span class="pill bg-purple-100 text-purple-800">Round 2 Interview</span></td>
+          <td class="px-4 py-3 text-slate-700">$195.9K–$293.9K</td>
+          <td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">75</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">Round 1 passed (Tobias Mann). Round 2 Jake Helmert — set alarm.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">Oura</div><div class="text-xs text-slate-500">Director, Manufacturing Test Engineering</div></td>
+          <td class="px-4 py-3"><span class="pill bg-purple-100 text-purple-800">Phone Screen Done</span></td>
+          <td class="px-4 py-3 text-slate-700">$208K–$266K</td>
+          <td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">92</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">⚠️ Less preferred — base ~$250K, equity ~$700K/4yr cannot reach $1M, many layers.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">Rhoda AI</div><div class="text-xs text-slate-500">Test Engineering Lead (Robotics)</div></td>
+          <td class="px-4 py-3"><span class="pill bg-purple-100 text-purple-800">Interview Apr 23</span></td>
+          <td class="px-4 py-3 text-slate-400">—</td>
+          <td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">82</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">Jason Larson + Dennis Parker 10:30 AM PDT. Inbound from Albert Liao.</td>
+        </tr>
+        <tr>
+          <td class="px-4 py-3"><div class="font-semibold">OpenAI</div><div class="text-xs text-slate-500">Mfg Test Engineer · Stargate</div></td>
+          <td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">Applied Apr 22</span></td>
+          <td class="px-4 py-3 text-slate-700">$205K–$335K + equity</td>
+          <td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">92</span></td>
+          <td class="px-4 py-3 text-slate-600 text-xs">Berena Matthews referral. Stargate AI compute infra.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- Applied awaiting -->
+  <section>
+    <h2 class="text-sm font-semibold text-blue-700 uppercase tracking-wide mb-3">🔵 Applied — awaiting response</h2>
+    <div class="overflow-x-auto rounded-xl border border-blue-200 bg-white">
+    <table class="w-full text-sm">
+      <thead class="bg-blue-50 text-blue-900">
+        <tr>
+          <th class="text-left px-4 py-2 font-medium">Company / Role</th>
+          <th class="text-left px-4 py-2 font-medium">Applied</th>
+          <th class="text-left px-4 py-2 font-medium">Salary</th>
+          <th class="text-left px-4 py-2 font-medium">Score</th>
+          <th class="text-left px-4 py-2 font-medium">Notes</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100 text-sm">
+        <tr><td class="px-4 py-3"><div class="font-semibold">Anthropic</div><div class="text-xs text-slate-500">EM Vertical AI · Life Sciences</div></td><td class="px-4 py-3 text-slate-600">2026-04-22</td><td class="px-4 py-3 text-slate-700">$320K–$485K</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">74</span></td><td class="px-4 py-3 text-slate-600 text-xs">PhD + PacBio + Meta ML infra → strong fit.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Anthropic</div><div class="text-xs text-slate-500">TPM, Consumer Engineering</div></td><td class="px-4 py-3 text-slate-600">2026-04-22</td><td class="px-4 py-3 text-slate-700">$290K–$365K</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">78</span></td><td class="px-4 py-3 text-slate-600 text-xs">Claude web/mobile/desktop launch readiness.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Anthropic</div><div class="text-xs text-slate-500">TPM External Tech Partnerships</div></td><td class="px-4 py-3 text-slate-600">2026-04-22</td><td class="px-4 py-3 text-slate-700">$300K–$320K + equity</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">82</span></td><td class="px-4 py-3 text-slate-600 text-xs">CM/ODM partner mgmt → Bedrock/Vertex AI partnerships.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Qualcomm</div><div class="text-xs text-slate-500">Sr Director, PM IoT Camera & Vision</div></td><td class="px-4 py-3 text-slate-600">2026-04-21</td><td class="px-4 py-3 text-slate-700">$227.7K–$341.5K + bonus + RSU</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">75</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">SiTime</div><div class="text-xs text-slate-500">Director, Test Engineering</div></td><td class="px-4 py-3 text-slate-600">2026-04-21</td><td class="px-4 py-3 text-slate-400">Base + bonus + equity</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">68</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Langham (PIC undisclosed)</div><div class="text-xs text-slate-500">Director of Test, Photonic ICs</div></td><td class="px-4 py-3 text-slate-600">2026-04-21</td><td class="px-4 py-3 text-slate-700">$300K–$350K + equity</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">85</span></td><td class="px-4 py-3 text-slate-600 text-xs">Recruiter ref BH-2342. Si photonics + wafer-level test.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Marvell</div><div class="text-xs text-slate-500">Director Product Engineering, Optics</div></td><td class="px-4 py-3 text-slate-600">2026-04-19</td><td class="px-4 py-3 text-slate-400">—</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">44</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">QuantumScape</div><div class="text-xs text-slate-500">Director, Automation Systems Eng</div></td><td class="px-4 py-3 text-slate-600">2026-04-19</td><td class="px-4 py-3 text-slate-700">$155.3K–$236.9K + RSU</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">42</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Avicena</div><div class="text-xs text-slate-500">Director, PD Development & Integration</div></td><td class="px-4 py-3 text-slate-600">2026-04-18</td><td class="px-4 py-3 text-slate-400">—</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">88</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">NVIDIA</div><div class="text-xs text-slate-500">Sr Mgr, Robotics QA</div></td><td class="px-4 py-3 text-slate-600">2026-04-18</td><td class="px-4 py-3 text-slate-700">$216K–$345K</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">78</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Lumilens</div><div class="text-xs text-slate-500">Director, Software Manufacturing</div></td><td class="px-4 py-3 text-slate-600">2026-04-13</td><td class="px-4 py-3 text-slate-700">Exec + meaningful equity</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">90</span></td><td class="px-4 py-3 text-slate-400 text-xs">—</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Snap</div><div class="text-xs text-slate-500">Director, TPM (AR/VR Spectacles)</div></td><td class="px-4 py-3 text-slate-600">2026-04-16</td><td class="px-4 py-3 text-slate-700">$258K–$455K + equity</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">85</span></td><td class="px-4 py-3 text-slate-600 text-xs">Meta/Oculus → Snap Spectacles direct parallel.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Synaptics</div><div class="text-xs text-slate-500">Director, Product & Test Engineering</div></td><td class="px-4 py-3 text-slate-600">2026-04-16</td><td class="px-4 py-3 text-slate-400">—</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">88</span></td><td class="px-4 py-3 text-slate-600 text-xs">Display/touch SoC test — Apple + Qualcomm + MicroDisplay direct match.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Arm</div><div class="text-xs text-slate-500">Solutions Lead, Robotics GTM</div></td><td class="px-4 py-3 text-slate-600">2026-04-16</td><td class="px-4 py-3 text-slate-700">$260K–$351.8K</td><td class="px-4 py-3"><span class="pill bg-slate-200 text-slate-700">20</span></td><td class="px-4 py-3 text-slate-600 text-xs">GTM/pre-sales — different role type, strong comp.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- New / not yet sent -->
+  <section>
+    <h2 class="text-sm font-semibold text-amber-700 uppercase tracking-wide mb-3">🟡 New — not yet sent</h2>
+    <div class="overflow-x-auto rounded-xl border border-amber-200 bg-white">
+    <table class="w-full text-sm">
+      <thead class="bg-amber-50 text-amber-900">
+        <tr>
+          <th class="text-left px-4 py-2 font-medium">Company / Role</th>
+          <th class="text-left px-4 py-2 font-medium">Salary</th>
+          <th class="text-left px-4 py-2 font-medium">Score</th>
+          <th class="text-left px-4 py-2 font-medium">Notes / Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <tr><td class="px-4 py-3"><div class="font-semibold">Google / DeepMind</div><div class="text-xs text-slate-500">Staff TPM, Gemini Robotics</div></td><td class="px-4 py-3 text-slate-700">$256K–$278K + bonus + equity</td><td class="px-4 py-3"><span class="pill bg-emerald-100 text-emerald-800">87</span></td><td class="px-4 py-3 text-slate-600 text-xs">Robotics + AI/ML + program execution trifecta. <b>Apply this week.</b></td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Google DeepMind</div><div class="text-xs text-slate-500">Director PM, Robotics</div></td><td class="px-4 py-3 text-slate-700">$272K–$383K + bonus + equity</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">72</span></td><td class="px-4 py-3 text-slate-600 text-xs">PM stretch on title; 1x + Meta direct analog.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">NVIDIA</div><div class="text-xs text-slate-500">Sr DevRel Mgr (DGX Cloud Lepton)</div></td><td class="px-4 py-3 text-slate-700">L5 $224K–$357K / L6 $272K–$431K + equity</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">50</span></td><td class="px-4 py-3 text-slate-600 text-xs">Practitioner AI angle — verify deadline (listed Mar 8).</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">NVIDIA</div><div class="text-xs text-slate-500">Principal DevRel Mgr, Manufacturing</div></td><td class="px-4 py-3 text-slate-700">$272K–$431.25K</td><td class="px-4 py-3"><span class="pill bg-blue-100 text-blue-800">55</span></td><td class="px-4 py-3 text-slate-600 text-xs">Deadline was Mar 21 — check via Sophia Wu if still open.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Thermo Fisher</div><div class="text-xs text-slate-500">Sr Mgr, Gen AI SW Engineering</div></td><td class="px-4 py-3 text-slate-400">—</td><td class="px-4 py-3"><span class="pill bg-slate-200 text-slate-700">28</span></td><td class="px-4 py-3 text-slate-400 text-xs">Lower priority.</td></tr>
+        <tr><td class="px-4 py-3"><div class="font-semibold">Waymo</div><div class="text-xs text-slate-500">Director Hardware Mfg / NPI</div></td><td class="px-4 py-3 text-slate-400">—</td><td class="px-4 py-3 text-slate-400">—</td><td class="px-4 py-3 text-slate-600 text-xs">No live job ID — monitor careers page.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- Closed / Rejected -->
+  <section>
+    <h2 class="text-sm font-semibold text-rose-700 uppercase tracking-wide mb-3">🔴 Closed / Rejected</h2>
+    <div class="rounded-xl border border-rose-200 bg-white p-4 text-sm space-y-2">
+      <div><span class="pill bg-red-100 text-red-700 mr-2">Rejected</span><b>Physical Intelligence</b> — Robot Test Engineer · salary too low ($130K–$160K)</div>
+      <div><span class="pill bg-red-100 text-red-700 mr-2">Rejected</span><b>Calyxo</b> · 2026-03-28</div>
+      <div><span class="pill bg-red-100 text-red-700 mr-2">Rejected</span><b>Dandy</b> · 2026-03-25</div>
+      <div><span class="pill bg-red-100 text-red-700 mr-2">Rejected</span><b>Roku</b> — Director Manufacturing Operations · 2026-04-04</div>
+    </div>
+  </section>
+
+  <!-- Action items -->
+  <section>
+    <h2 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">🎯 This-week actions</h2>
+    <ol class="list-decimal list-inside bg-white border border-slate-200 rounded-xl p-4 text-sm space-y-1.5">
+      <li><b>Set T-15min alarms</b> for Ampere phone screens (Mitrajit 1 PM, Alex 7 PM Apr 27) and PacBio Round 2 (Apr 23)</li>
+      <li><b>Apply to Google Staff TPM Gemini Robotics</b> — score 87, exceptional fit, no app yet</li>
+      <li><b>Send Etched resume</b> to Tom Sherry post-Ampere screens</li>
+      <li><b>Nvidia offer</b> — coordinate reference outreach window</li>
+      <li><b>Verify Nvidia DevRel deadlines</b> via Sophia Wu (Manufacturing + DGX Cloud Lepton)</li>
+    </ol>
+  </section>
+
+  <footer class="pt-4 pb-10 text-center text-xs text-slate-400">
+    Generated for OTW · <a class="underline" href="https://github.com/flying-pisces/otw">github.com/flying-pisces/otw</a> · sister page: <a class="underline" href="./eir.html">EIR schedule</a>
+  </footer>
+
+</main>
+
+</body>
+</html>
