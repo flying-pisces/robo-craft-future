@@ -190,6 +190,10 @@ const Index = () => {
             <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             {' · '}
             <a href="mailto:chuck@chuckyin.dev">Email</a>
+            {' · '}
+            <a href="/Chuck_Yin_Resume_2026.pdf" download>Resume</a>
+            {' · '}
+            <a href="/dash/" title="Admin portal — login required">Admin 🔒</a>
           </div>
         </div>
 
@@ -370,7 +374,9 @@ const Index = () => {
       <div id="footer">
         <p>
           Chuck Yin · Engineering Consultant · $125/hr ·{' '}
-          <a href="mailto:chuck@chuckyin.dev">chuck@chuckyin.dev</a>
+          <a href="mailto:chuck@chuckyin.dev">chuck@chuckyin.dev</a>{' · '}
+          <a href="/Chuck_Yin_Resume_2026.pdf" download>Resume</a>{' · '}
+          <a href="/dash/">Admin 🔒</a>
         </p>
         <p style={{ marginTop: '0.3em' }}>
           Inspired by <a href="https://kayke.xyz" target="_blank" rel="noopener noreferrer">Kay Ke</a>,{' '}
