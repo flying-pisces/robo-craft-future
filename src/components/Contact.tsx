@@ -14,7 +14,7 @@ interface FormData {
 }
 
 const INFO = [
-  { icon: <Mail size={15} />, label: 'Email', value: 'chuck@chuckyin.dev', href: 'mailto:chuck@chuckyin.dev' },
+  { icon: <Mail size={15} />, label: 'Email', value: 'yyin@me.com', href: 'mailto:yyin@me.com' },
   { icon: <MapPin size={15} />, label: 'Location', value: 'San Francisco Bay Area, CA', href: null },
   { icon: <Clock size={15} />, label: 'Response', value: '< 24 hours', href: null },
 ];
@@ -202,7 +202,7 @@ const Contact = () => {
                 </button>
 
                 <p className="text-xs text-muted-foreground text-center font-mono">
-                  Or email directly: chuck@chuckyin.dev
+                  Or email directly: yyin@me.com
                 </p>
               </form>
             )}

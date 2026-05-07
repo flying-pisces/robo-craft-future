@@ -70,7 +70,7 @@ const Navbar = () => {
               </button>
             ))}
             <a
-              href="mailto:chuck@chuckyin.dev"
+              href="mailto:yyin@me.com"
               onClick={() => playClick()}
               onMouseEnter={() => soundOn && playHover()}
               className="ml-2 px-4 py-1.5 rounded border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-200 glow-cyan"
@@ -112,7 +112,7 @@ const Navbar = () => {
               </button>
             ))}
             <a
-              href="mailto:chuck@chuckyin.dev"
+              href="mailto:yyin@me.com"
               className="block mt-3 px-3 py-2 text-center rounded border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-all"
             >
               Hire Me — $125/hr

@@ -189,7 +189,7 @@ const Index = () => {
             {' · '}
             <a href="https://linkedin.com/in/yeyin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             {' · '}
-            <a href="mailto:chuck@chuckyin.dev">Email</a>
+            <a href="mailto:yyin@me.com">Email</a>
             {' · '}
             <a href="/Chuck_Yin_Resume_2026.pdf" download>Resume</a>
             {' · '}
@@ -349,7 +349,7 @@ const Index = () => {
               return (
                 <div key={i} className="misc-highlight">
                   💼 {item.text}{' '}
-                  <a href="mailto:chuck@chuckyin.dev">chuck@chuckyin.dev</a>
+                  <a href="mailto:yyin@me.com">yyin@me.com</a>
                 </div>
               );
             }
@@ -374,7 +374,7 @@ const Index = () => {
       <div id="footer">
         <p>
           Chuck Yin · Engineering Consultant · $125/hr ·{' '}
-          <a href="mailto:chuck@chuckyin.dev">chuck@chuckyin.dev</a>{' · '}
+          <a href="mailto:yyin@me.com">yyin@me.com</a>{' · '}
           <a href="/Chuck_Yin_Resume_2026.pdf" download>Resume</a>{' · '}
           <a href="/dash/">Admin 🔒</a>
         </p>
