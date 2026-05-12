@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Etched — Onsite Interview Prep · Chuck Yin</title>
+<style>
+  :root {
+    --bg: #0b0a0d;
+    --surface: #161318;
+    --surface2: #1f1b21;
+    --border: #2c2630;
+    --accent: #f97066;
+    --accent2: #fda29b;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+    --orange: #fb923c;
+    --text: #ede9f0;
+    --muted: #9a8fa3;
+    --tag-bg: #221c25;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .top-bar { background: linear-gradient(135deg, #1d0a08 0%, #0b0a0d 100%); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .top-bar h1 { font-size: 1.4rem; font-weight: 700; color: #fff; }
+  .badge { background: var(--accent); color: #2a0d0a; font-size: 0.72rem; padding: 4px 12px; border-radius: 20px; font-weight: 700; letter-spacing: 0.05em; }
+  .urgent { background: linear-gradient(135deg, #f97066, #c4302a); color: #2a0d0a; text-align: center; padding: 10px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; }
+  .container { max-width: 1140px; margin: 0 auto; padding: 28px 24px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+  .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .card-header .icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .icon-red { background: rgba(249,112,102,0.15); }
+  .icon-green { background: rgba(34,197,94,0.15); }
+  .icon-yellow { background: rgba(245,158,11,0.15); }
+  .icon-blue { background: rgba(96,165,250,0.15); }
+  .icon-purple { background: rgba(167,139,250,0.15); }
+  .icon-orange { background: rgba(251,146,60,0.15); }
+  .card-header h2 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); gap: 12px; }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { color: var(--muted); font-size: 0.85rem; }
+  .stat-value { font-size: 0.9rem; font-weight: 600; text-align: right; }
+  .highlight { color: var(--accent2); }
+  .green { color: var(--green); }
+  .yellow { color: var(--yellow); }
+  .red { color: var(--red); }
+  .section-title { font-size: 1.05rem; font-weight: 700; margin: 30px 0 14px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .section-title::before { content: ''; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; display: inline-block; }
+  .interviewer-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+  .interviewer-card .name { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .interviewer-card .title { font-size: 0.82rem; color: var(--accent2); margin-bottom: 10px; }
+  .tag { display: inline-block; background: var(--tag-bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px 9px; font-size: 0.75rem; color: var(--muted); margin: 2px; }
+  .talking-point { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 8px; }
+  .talking-point .tp-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 700; margin-bottom: 5px; }
+  .talking-point .tp-text { font-size: 0.88rem; color: var(--text); }
+  .talking-point .tp-proof { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .q-block { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 14px; margin-bottom: 10px; font-size: 0.88rem; }
+  .q-block .q-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent2); margin-bottom: 4px; font-weight: 700; }
+  .q-block .q-text { color: var(--text); }
+  .q-block .q-hint { font-size: 0.78rem; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .ask-q { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; margin-bottom: 8px; font-size: 0.87rem; display: flex; gap: 10px; align-items: flex-start; }
+  .ask-q .ask-num { color: var(--accent2); font-weight: 700; font-size: 0.82rem; flex-shrink: 0; margin-top: 1px; }
+  .info-box { background: rgba(249,112,102,0.06); border: 1px solid rgba(249,112,102,0.25); border-radius: 8px; padding: 14px; margin-bottom: 12px; font-size: 0.85rem; }
+  .info-box strong { color: var(--accent2); }
+  .warn-box { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.25); border-radius: 8px; padding: 14px; margin-bottom: 12px; font-size: 0.85rem; }
+  .warn-box strong { color: var(--yellow); }
+  .red-box { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.35); border-radius: 8px; padding: 14px; margin-bottom: 12px; font-size: 0.85rem; }
+  .red-box strong { color: var(--red); }
+  .blue-box { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.3); border-radius: 8px; padding: 14px; margin-bottom: 12px; font-size: 0.85rem; }
+  .blue-box strong { color: var(--blue); }
+  .purple-box { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.3); border-radius: 8px; padding: 14px; margin-bottom: 12px; font-size: 0.85rem; }
+  .purple-box strong { color: var(--purple); }
+  .timeline-item { display: flex; gap: 14px; margin-bottom: 12px; }
+  .timeline-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .timeline-content { font-size: 0.87rem; color: var(--text); }
+  .timeline-content .tl-date { font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; }
+  .match-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); gap: 12px; }
+  .match-row:last-child { border-bottom: none; }
+  .match-req { font-size: 0.83rem; color: var(--muted); flex: 1; }
+  .match-val { font-size: 0.83rem; font-weight: 600; color: var(--green); text-align: right; max-width: 55%; }
+  .match-val.gap { color: var(--yellow); }
+  .score-badge { background: linear-gradient(135deg, #f97066, #c4302a); color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; display: inline-block; }
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .chip { background: var(--tag-bg); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 0.78rem; color: var(--text); }
+  .chip.accent { border-color: rgba(249,112,102,0.4); color: var(--accent2); }
+  .chip-label { font-size: 0.65rem; color: var(--muted); display: block; margin-bottom: 1px; }
+  .tech-spec { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .tech-spec h3 { font-size: 0.9rem; color: var(--accent2); margin-bottom: 8px; font-weight: 700; }
+  .tech-spec p { font-size: 0.85rem; color: var(--text); }
+  .tech-spec .num { font-size: 1.5rem; font-weight: 800; color: var(--accent); display: block; margin: 4px 0; }
+  code { background: var(--tag-bg); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; font-size: 0.85em; color: var(--accent2); }
+  footer { text-align: center; color: var(--muted); font-size: 0.75rem; padding: 28px; border-top: 1px solid var(--border); margin-top: 40px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+  @media (max-width: 800px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div>
+    <div style="font-size:0.75rem; color:var(--muted); margin-bottom:4px;">INTERVIEW PREP · CONFIDENTIAL</div>
+    <h1>🔥 Etched — Manufacturing Engineering Lead · Onsite</h1>
+  </div>
+  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+    <div class="badge">⭐⭐⭐⭐ EXCEPTIONAL · Score 82</div>
+    <div style="background: rgba(34,197,94,0.18); border: 1px solid rgba(34,197,94,0.5); color: var(--green); font-size: 0.72rem; padding: 4px 12px; border-radius: 20px; font-weight: 700; letter-spacing: 0.05em;">⭐ HIGH PRIORITY · $5B Valuation</div>
+  </div>
+</div>
+<div class="urgent">⏰ ONSITE: Tuesday, May 12, 2026 · 12:30 PM PT · Etched HQ — Santana Row, San Jose</div>
+
+<div class="container">
+
+  <!-- Top overview -->
+  <div class="grid-3" style="margin-top:8px;">
+    <div class="card">
+      <div class="card-header"><div class="icon icon-red">📋</div><h2>Interview Details</h2></div>
+      <div class="stat-row"><span class="stat-label">Date</span><span class="stat-value highlight">Tue May 12 · TOMORROW</span></div>
+      <div class="stat-row"><span class="stat-label">Time</span><span class="stat-value">12:30 PM PT onward</span></div>
+      <div class="stat-row"><span class="stat-label">Type</span><span class="stat-value">Onsite · coffee/lunch + interviews</span></div>
+      <div class="stat-row"><span class="stat-label">Location</span><span class="stat-value">Santana Row, San Jose</span></div>
+      <div class="stat-row"><span class="stat-label">Panel</span><span class="stat-value">Wayne Cao · Kurt Ding · Tom Zhao · Sanford Long</span></div>
+      <div class="stat-row"><span class="stat-label">Introducer</span><span class="stat-value">Ashank (handed off May 4)</span></div>
+      <div class="stat-row"><span class="stat-label">Role</span><span class="stat-value">MFG Eng Lead / Head of MFG Eng (flexible)</span></div>
+      <div class="stat-row"><span class="stat-label">Recruiter</span><span class="stat-value">Tom Sherry (LinkedIn inbound)</span></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="icon icon-blue">🏢</div><h2>Company Snapshot</h2></div>
+      <div class="stat-row"><span class="stat-label">Product</span><span class="stat-value highlight">Sohu — Transformer-only ASIC</span></div>
+      <div class="stat-row"><span class="stat-label">Founded</span><span class="stat-value">2022 · Harvard dropouts</span></div>
+      <div class="stat-row"><span class="stat-label">Valuation</span><span class="stat-value green">$5B (2025 round)</span></div>
+      <div class="stat-row"><span class="stat-label">Raised</span><span class="stat-value">~$1B · Stripes, Thiel, Ribbit, Positive Sum</span></div>
+      <div class="stat-row"><span class="stat-label">Fab</span><span class="stat-value">TSMC 4nm · Rambus HBM IP</span></div>
+      <div class="stat-row"><span class="stat-label">HQ</span><span class="stat-value">Santana Row · fully in-person · ~35 ppl</span></div>
+      <div class="stat-row"><span class="stat-label">Shipping?</span><span class="stat-value yellow">Not yet (as of mid-2026)</span></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="icon icon-yellow">🎯</div><h2>Match vs. Need</h2></div>
+      <div class="stat-row"><span class="stat-label">Match Score</span><span class="stat-value"><span class="score-badge">82 / 100</span></span></div>
+      <div class="stat-row"><span class="stat-label">SMT / FATP</span><span class="stat-value green">✓ Apple + Square direct</span></div>
+      <div class="stat-row"><span class="stat-label">100M+ unit scale</span><span class="stat-value green">✓ Apple display, Square Reader</span></div>
+      <div class="stat-row"><span class="stat-label">CM / ODM mgmt</span><span class="stat-value green">✓ Foxconn / Pegatron / AAC</span></div>
+      <div class="stat-row"><span class="stat-label">AI hardware</span><span class="stat-value green">✓ 1x Humanoid · Meta RL</span></div>
+      <div class="stat-row"><span class="stat-label">Wafer / OSAT</span><span class="stat-value gap">~ Less direct (frame as analog)</span></div>
+      <div class="stat-row"><span class="stat-label">PhD credibility</span><span class="stat-value green">✓ Chemical Physics</span></div>
+    </div>
+  </div>
+
+  <!-- ===== SOHU TECH DEEP DIVE ===== -->
+  <div class="section-title">Sohu — The Tech You Must Speak To Fluently</div>
+  <div class="info-box">
+    <strong>Core thesis:</strong> By <em>burning the transformer architecture directly into silicon</em>, Sohu reaches ~90%+ FLOP utilization on transformer inference vs. ~30% for an H100. The bet is that transformers are dominant enough (and stable enough) that giving up generality is worth a 10–20× perf/$ uplift. <strong>One 8×Sohu server = 160 H100s</strong> on Llama-70B inference, per Etched's claim.
+  </div>
+
+  <div class="grid-4">
+    <div class="tech-spec"><h3>Process</h3><span class="num">4 nm</span><p>TSMC 4nm, same node as Nvidia B200. Reticle-limit die — yield is a major manufacturing concern.</p></div>
+    <div class="tech-spec"><h3>Memory</h3><span class="num">144 GB</span><p>HBM3E (8 stacks, Rambus PHY). Holds 70B-param model in FP8 with KV-cache headroom.</p></div>
+    <div class="tech-spec"><h3>HBM BW</h3><span class="num">~4.8 TB/s</span><p>Enough to keep decode phase off the memory wall — beats H100's 3.35 TB/s.</p></div>
+    <div class="tech-spec"><h3>Throughput</h3><span class="num">500K tok/s</span><p>Marketing claim on 8×Sohu server, Llama-70B, FP8 (2048 in / 128 out). No third-party benchmarks yet.</p></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card">
+      <div class="card-header"><div class="icon icon-red">⚙️</div><h2>What's "Hardcoded"</h2></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">QKV projection — dedicated MAC arrays per head</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">Multi-head attention + softmax — fixed pipeline, no kernel scheduler</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">FFN with GELU / SiLU activations — baked-in nonlinearity blocks</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">Layer normalization — hardwired</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content">FP8 native compute — no FP16/BF16 fallback (huge silicon savings)</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><strong>No general-purpose compute units.</strong> Data flows through a fixed pipeline — almost no control plane on die.</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="icon icon-orange">⚠️</div><h2>Why It's Risky (and Where MFG Lives)</h2></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--yellow);"></div><div class="timeline-content"><strong>Architecture lock-in:</strong> if Mamba / SSMs / diffusion supplant transformers in inference, Sohu is dead silicon. Mitigated by GPT-5 / Claude / Gemini still being transformer-based.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--yellow);"></div><div class="timeline-content"><strong>Reticle-limit die on 4nm:</strong> yield is the single biggest cost lever. Wafer cost ~$20K → defect density and bin-out strategy directly determine $/chip.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--yellow);"></div><div class="timeline-content"><strong>HBM3E supply:</strong> SK Hynix / Micron-constrained — same scarcity Nvidia fights. Etched must lock allocation early.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--yellow);"></div><div class="timeline-content"><strong>CoWoS packaging:</strong> TSMC advanced packaging is capacity-constrained. Sohu competes with Nvidia/AMD for slots.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--yellow);"></div><div class="timeline-content"><strong>System assembly:</strong> 8×Sohu server box (board, cooling, power, networking) — this is where your Apple/Square CM mgmt experience plugs in directly.</div></div>
+    </div>
+  </div>
+
+  <!-- ===== INTERVIEWERS ===== -->
+  <div class="section-title">Your Four Interviewers (Full Panel)</div>
+
+  <div class="info-box">
+    <strong>Panel composition reads like a deliberate cross-section of the mfg-eng function:</strong> Supply Chain (Wayne) → Manufacturing Test (Kurt) → Quality (Tom) → Platform / System (Sanford). They want signal across every boundary the new lead would interface with. <strong>Each one needs a 10-minute story tuned to their domain.</strong>
+  </div>
+
+  <!-- 1. Wayne Cao -->
+  <div class="interviewer-card" style="border-color: rgba(249,112,102,0.5);">
+    <div class="name">1 · Wayne Cao <span style="font-size:0.78rem; color:var(--muted); font-weight:500;">— Supply Chain</span></div>
+    <div class="title">Head of Supply Chain · Etched · joined ~late 2024 · San Jose</div>
+    <div class="purple-box" style="margin-top:8px;">
+      <strong>Path:</strong> <strong>Dell → Apple → Google → C3 AI (Supply Chain AI PM) → Etched</strong>. PhD Supply Chain Mgmt &amp; IT from Michigan State. Has lived the same CM / NPI world you have. Made the public "I've joined Etched as Head of Supply Chain" LinkedIn post; he is building the function and looking for adjacent leaders to anchor it.
+    </div>
+    <div class="chip-grid">
+      <div class="chip accent">Ex-Apple Supply Chain</div>
+      <div class="chip accent">Ex-Google hardware</div>
+      <div class="chip">Ex-Dell</div>
+      <div class="chip">Ex-C3 AI</div>
+      <div class="chip">PhD MSU</div>
+      <div class="chip">Bilingual EN/中文</div>
+    </div>
+    <div style="font-size:0.85rem; color:var(--text); margin-top:12px;">
+      <strong style="color:var(--accent2);">Talk to him about:</strong> Apple supply-chain era — who do you both know? CoWoS allocation and HBM3E supply (the existential bottlenecks); OSAT partner choice (ASE / Amkor / SPIL); the supply-chain ⇄ mfg-eng interface (incoming-quality spec + joint forecast); CM selection for the 8×Sohu server box. He'll respect direct numbers — "I drove 5pp BOM out of Square Reader" / "I managed N suppliers across M sites."
+      <br><br>
+      <strong style="color:var(--accent2);">His likely test:</strong> Can you operate at his cadence (PhD-level, big-tech-disciplined, AI-software-fluent) <em>and</em> bridge to messy CM-floor reality? He's seen both polished decks and shop-floor heroics; he wants someone who does both.
+    </div>
+  </div>
+
+  <!-- 2. Kurt Ding -->
+  <div class="interviewer-card" style="border-color: rgba(96,165,250,0.5);">
+    <div class="name">2 · Kurt Ding (Yi Ding) <span style="font-size:0.78rem; color:var(--muted); font-weight:500;">— Manufacturing Test</span></div>
+    <div class="title">Member of Technical Staff · Etched · Mountain View · ex-NVIDIA, ex-Meta/Facebook, ex-VAST Data</div>
+    <div class="blue-box" style="margin-top:8px;">
+      <strong>The most technically dangerous interviewer for you.</strong> Kurt did manufacturing test / firmware at <strong>NVIDIA → Meta/Facebook infra → VAST Data</strong>. That trio is the AI-server / GPU-storage test stack at hyperscale. Etched's published "Manufacturing Test &amp; Production Engineer" JD reads like his exact role description — he is the technical owner of test today, you would be the leader he'd potentially report to. <strong>This is a peer-credibility check.</strong>
+    </div>
+    <div class="chip-grid">
+      <div class="chip accent">Ex-NVIDIA</div>
+      <div class="chip accent">Ex-Meta / Facebook</div>
+      <div class="chip">Ex-VAST Data</div>
+      <div class="chip">Ex-Cortina (PMTS firmware)</div>
+      <div class="chip">Univ. of Minnesota '06</div>
+      <div class="chip">Firmware + MFG test</div>
+    </div>
+    <div style="font-size:0.85rem; color:var(--text); margin-top:12px;">
+      <strong style="color:var(--accent2);">Talk to him about:</strong> test-station architecture for high-current AI accelerator boards; bring-up vs. production test phasing; test-program version control + traceability; how you handled wafer-probe → SLT → final-assembly test continuity (frame Apple/Meta system test as analog); KGD (known-good-die) handling; functional vs. structural test coverage trade-offs; how DFT hooks get specified to silicon designers.
+      <br><br>
+      <strong style="color:var(--accent2);">Open with this:</strong> "Etched's MFG Test job spec is unusually precise — tell me how the bring-up / production test split looks today, and where you'd most want me to plug in." Demonstrates you've read his world.
+      <br><br>
+      <strong style="color:var(--accent2);">His likely test:</strong> Can you talk test-program internals (not just org charts)? Memorize one specific test-station story from Apple display or 1x — boundary conditions, what broke, how you instrumented it.
+    </div>
+  </div>
+
+  <!-- 3. Tom Zhao -->
+  <div class="interviewer-card" style="border-color: rgba(167,139,250,0.5);">
+    <div class="name">3 · Tom Zhao <span style="font-size:0.78rem; color:var(--muted); font-weight:500;">— Quality</span></div>
+    <div class="title">Quality leadership · Etched · Fremont · <span style="color:var(--accent2);">ex-Super Micro Computer · 25+ yrs electronics OEM/ODM</span></div>
+    <div class="purple-box" style="margin-top:8px;">
+      <strong>Strongest AI-server domain DNA on the panel.</strong> Tom comes from <strong>Super Micro</strong> — the dominant AI-server ODM (literally the company building most of the GB200/H100/H200 racks Nvidia ships). 25+ years OEM/ODM electronics, regulatory + compliance specialist (ISO / EPEAT / REACH), bilingual EN / 中文 for Asia CM coordination, mentor archetype. <strong>His joining Etched signals Etched is preparing for hyperscaler-grade quality discipline.</strong>
+    </div>
+    <div class="chip-grid">
+      <div class="chip accent">Ex-Super Micro (AI servers)</div>
+      <div class="chip accent">25+ yrs OEM/ODM</div>
+      <div class="chip">ISO / EPEAT / REACH</div>
+      <div class="chip">Asia CM coordination</div>
+      <div class="chip">Strategic leadership</div>
+      <div class="chip">Bilingual EN/中文</div>
+    </div>
+    <div style="font-size:0.85rem; color:var(--text); margin-top:12px;">
+      <strong style="color:var(--accent2);">Talk to him about:</strong> hyperscaler customer-acceptance test (the AI-server quality bar — Tom has lived this); FA / 8D process for first-customer defects; statistical process control on AI accelerator boards; supplier quality engineering — your Apple/Square supplier-quality wins; the "if a $200K server has 1 defect, it's a customer-relationship event" framing (he will agree emphatically); ISO 9001 readiness; field-quality data loop back into design.
+      <br><br>
+      <strong style="color:var(--accent2);">Bridge story to use:</strong> "At Apple, defective field returns of displays were measured in PPM. I worked with QE to drive the warranty rate down 30% over two years by tightening the test coverage at FATP. With Etched's customer scale, the math is different — each unit is six figures, so the bar is even higher and the loop tighter." He will <em>love</em> this framing.
+      <br><br>
+      <strong style="color:var(--accent2);">His likely test:</strong> Are you a quality-mature manager or a "good enough, ship it" manager? Lean into the 1x Humanoid quality story — robots near humans, safety-critical, you can't ship sloppy.
+    </div>
+  </div>
+
+  <!-- 4. Sanford Long -->
+  <div class="interviewer-card" style="border-color: rgba(34,197,94,0.5);">
+    <div class="name">4 · Sanford Long <span style="font-size:0.78rem; color:var(--muted); font-weight:500;">— Platform / System</span></div>
+    <div class="title">Engineering Lead, Platform · Etched (since Mar 2024) · leads ~10-person platform team · Cupertino</div>
+    <div class="info-box" style="margin-top:8px; border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.05);">
+      <strong style="color:var(--green);">Direct overlap with your Meta Reality Labs + 1x Robotics era.</strong> Sanford is a <strong>young mechanical engineer</strong> (UW ME, expected '24). Prior: <strong>Ghost Pacer — developed mechanical POC for the lightest fully self-contained AR headset</strong> (Ghost Pacer was acquired by Peloton). Also co-founded <strong>Off The Shelf Robotics</strong> (built an autonomous warehousing demo in &lt;10 weeks) and ran <strong>Long Robotics LLC</strong>. He is <em>not</em> a co-founder of Etched — the earlier message was wrong. He owns the platform / 8×Sohu server / system bring-up.
+    </div>
+    <div class="chip-grid">
+      <div class="chip accent">AR headset hardware</div>
+      <div class="chip accent">Robotics (autonomous warehousing)</div>
+      <div class="chip">UW ME / Mechatronics</div>
+      <div class="chip">Mechanical POC fast-prototyping</div>
+      <div class="chip">Leads ~10 platform engineers</div>
+      <div class="chip">Scrappy startup builder</div>
+    </div>
+    <div style="font-size:0.85rem; color:var(--text); margin-top:12px;">
+      <strong style="color:var(--accent2);">Talk to him about:</strong> AR headset mechanical design (your Meta Reality Labs era — Quest, Ray-Ban, optics integration — direct overlap); humanoid robotics at 1x (he'll love this; warehousing-robotics roots); first-system bring-up methodology — golden unit, instrumentation, single failure tracker; thermal / power / mechanical packaging of the 8×Sohu box; rack-integration interfaces; <em>how the platform team's pace stays high without burying mfg-eng under change orders.</em>
+      <br><br>
+      <strong style="color:var(--accent2);">Posture:</strong> peer-collaborator with experience. He runs platform engineering at maybe 25-26 years old and built real things fast. Respect that velocity — don't lecture about Apple process — but bring the discipline he'll need as Sohu goes from prototype to production. He needs you to make him look good with customers; show him how that works.
+      <br><br>
+      <strong style="color:var(--accent2);">His likely test:</strong> Are you nimble enough for a 35-person startup, or are you going to import Apple bureaucracy? Counter-signal explicitly: "1x was zero-to-one — that taught me which Apple processes are non-negotiable and which ones I should leave at the door."
+    </div>
+  </div>
+
+  <!-- Ashank context -->
+  <div class="interviewer-card" style="border-color: rgba(154,143,163,0.3);">
+    <div class="name">Background · Ashank <span style="font-size:0.78rem; color:var(--muted); font-weight:500;">(your introducer)</span></div>
+    <div class="title">Etched team · already interviewed you · made the Wayne intro on May 4</div>
+    <div style="font-size:0.85rem; color:var(--text); margin-top:8px;">
+      Warmly handed you off to Wayne via iMessage ("Wayne, meet Chuck. He's awesome. You guys should get coffee or a meal sometime next week"). May or may not be present — confirm at check-in. <strong>If present, thank him personally for the intro</strong> and ask how the round you did with him fed into the team's thinking.
+    </div>
+  </div>
+
+  <!-- Etched leadership context -->
+  <div class="section-title">Etched Leadership You Should Be Aware Of</div>
+  <div class="card">
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Gavin Uberti</strong> · CEO &amp; Co-Founder</div><div class="match-val" style="color:var(--text);">Harvard dropout. Ex-OctoML, Xnor.ai. The vision & narrative voice.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Robert Wachen</strong> · COO &amp; Co-Founder</div><div class="match-val" style="color:var(--text);">Operations & hardware delivery. Previously co-founded Prod (AI incubator).</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Chris Zhu</strong> · Co-Founder</div><div class="match-val" style="color:var(--text);">Harvard math / HPC research, Thiel Fellow. Core architecture.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Mark Ross</strong> · CTO</div><div class="match-val" style="color:var(--text);">Ex-CTO at Cypress Semiconductor. Adult-in-the-room silicon execution.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Ajat Hukkoo</strong> · VP Hardware Engineering</div><div class="match-val" style="color:var(--text);">Ex-Intel 9y, ex-Broadcom 14y. <strong style="color:var(--accent2);">Likely the eventual hiring manager above MFG Eng.</strong></div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Saptadeep Pal</strong> · Chief Architect</div><div class="match-val" style="color:var(--text);">Co-founded Auradine. Owns the Sohu microarchitecture.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Brian Loiler</strong> · VP Platform &amp; System Engineering</div><div class="match-val" style="color:var(--text);">Owns the platform (server / board / firmware). Sanford likely reports here.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Ankur Shah</strong> · Head of AI SoC</div><div class="match-val" style="color:var(--text);">SoC integration.</div></div>
+  </div>
+
+  <!-- ===== HOW CHUCK FITS ===== -->
+  <div class="section-title">How Your Background Maps To What Etched Needs</div>
+  <div class="card">
+    <div class="match-row"><div class="match-req">Build mfg-eng function from scratch at a 35-person silicon startup</div><div class="match-val">✓ Built mfg & test from zero at 1x Robotics — exact precedent</div></div>
+    <div class="match-row"><div class="match-req">SMT / FATP for the 8×Sohu server box (board, module, system)</div><div class="match-val">✓ SMT stations at Square (Reader/Register), FATP at Apple/Foxconn 100M+/yr</div></div>
+    <div class="match-row"><div class="match-req">ODM / CM selection &amp; management (Asia-based assembly)</div><div class="match-val">✓ Foxconn, Pegatron, AAC, ICT — full multi-vendor playbook</div></div>
+    <div class="match-row"><div class="match-req">NPI ramp: EVT → DVT → PVT → MP for first-gen silicon platform</div><div class="match-val">✓ Owned this end-to-end at Meta RL and 1x</div></div>
+    <div class="match-row"><div class="match-req">DFM / DFx feedback into silicon &amp; package designers</div><div class="match-val">✓ Track record at Apple display + Meta optics</div></div>
+    <div class="match-row"><div class="match-req">Test station design for high-current / high-thermal AI accelerator boards</div><div class="match-val">✓ Apple Lumitop optical calibration; Meta IP test stations; 1x system test</div></div>
+    <div class="match-row"><div class="match-req">AI / GPU-server hardware domain familiarity</div><div class="match-val">✓ 1x Humanoid Robotics + Meta Reality Labs</div></div>
+    <div class="match-row"><div class="match-req">Technical credibility with PhD-level silicon team</div><div class="match-val">✓ PhD Chemical Physics + patents</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--yellow);">GAP:</strong> Wafer-level / fab process management at TSMC</div><div class="match-val gap">~ Less direct — Wayne owns supply chain; you own everything past tested-die</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--yellow);">GAP:</strong> OSAT (ASE / Amkor) packaging management</div><div class="match-val gap">~ Frame as analog of Foxconn / Pegatron CM management</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--yellow);">GAP:</strong> Wafer-probe / ATE-level test (chip socket testing)</div><div class="match-val gap">~ More system-level test; bridge with Lumitop / IP test station background</div></div>
+  </div>
+
+  <div class="info-box" style="margin-top:14px;">
+    <strong>How to frame the gaps:</strong> "I've spent my career owning everything from <em>tested die / package arrival</em> through <em>finished, shipped system</em>. At a startup at Etched's stage, that's the much bigger and less-mature surface — you have Wayne and a TSMC PE handling wafer and package, but the board, system, test stations, CM ramp, and field-quality loop is what eats the headcount. That's where I plug in."
+  </div>
+
+  <!-- ===== HOW YOU'RE DIFFERENT FROM ETCHED INSIDERS ===== -->
+  <div class="section-title">What You Bring That Etched Doesn't Have Internally</div>
+  <div class="grid-2">
+    <div class="talking-point">
+      <div class="tp-label">Scale Experience They Lack</div>
+      <div class="tp-text">Etched is 35 people, no product shipping. Most of their team is silicon design + IC veterans. They have <strong>zero</strong> people who've owned 100M-unit/yr ramps. You bring the muscle memory for the leap from "first 100 servers to OpenAI" to "thousands of servers to hyperscalers."</div>
+      <div class="tp-proof">Proof: Apple display ramps (100M+/yr), Square Reader (10M units), Meta Quest precision assembly</div>
+    </div>
+    <div class="talking-point">
+      <div class="tp-label">CM-Side Negotiating Power</div>
+      <div class="tp-text">A 35-person startup walking into Foxconn/Pegatron/Quanta gets minimum priority. You've been on the <em>customer</em> side of those CMs — you know how they triage, how to extract real allocation, where the BOM-cost levers are.</div>
+      <div class="tp-proof">Proof: Multi-year direct relationships at Foxconn, Pegatron APAC, AAC, ICT</div>
+    </div>
+    <div class="talking-point">
+      <div class="tp-label">From-Scratch Function Building</div>
+      <div class="tp-text">At 1x Robotics you built the manufacturing & test function from zero on a humanoid robot — entirely new product category, brand-new CMs, brand-new test paradigms. That is exactly the playbook Etched needs for the 8×Sohu server class of product.</div>
+      <div class="tp-proof">Proof: 1x Humanoid mfg/test build-out (current role)</div>
+    </div>
+    <div class="talking-point">
+      <div class="tp-label">DFx Feedback Loop Discipline</div>
+      <div class="tp-text">Etched's silicon team is small and brilliant but inexperienced at the volume-manufacturing feedback loop. You've fed test-yield data back into silicon and package redesigns at Apple. That loop, run well, is worth multiple percent of yield at the system level.</div>
+      <div class="tp-proof">Proof: Apple display DFM influence; Meta optics test feedback to design</div>
+    </div>
+  </div>
+
+  <!-- ===== KEY DIFFERENTIATORS VS COMPETITORS ===== -->
+  <div class="section-title">Etched vs. The Competitive Landscape (Be Conversant)</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><div class="icon icon-purple">🥊</div><h2>Direct AI-Inference Rivals</h2></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><strong>Groq</strong> — LPU, SRAM-based, deterministic. Already shipping & generating revenue. Threat: similar token-throughput claims, more proof.</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><strong>Cerebras</strong> — wafer-scale, training-leaning, has services revenue. Different shape, similar specialized-silicon thesis.</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><strong>SambaNova</strong> — reconfigurable dataflow, enterprise sales motion.</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><strong>Tenstorrent</strong> — Jim Keller, RISC-V + AI cores, more programmable.</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-content"><strong>Hyperscaler in-house</strong> — Google TPU, AWS Trainium/Inferentia, Meta MTIA, Microsoft Maia. Closest existential threat: Etched only wins if it beats internal silicon on $/token for the same scale of customer.</div></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="icon icon-orange">⚡</div><h2>Why Etched Could Win</h2></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--green);"></div><div class="timeline-content"><strong>Pure transformer focus</strong> — competitors all keep some generality. Etched's bet: that generality is dead weight.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--green);"></div><div class="timeline-content"><strong>Inference-only</strong> — no training bloat. Smaller die, simpler memory, lower power per token.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--green);"></div><div class="timeline-content"><strong>Open-market chip</strong> — anyone can buy. Hyperscaler in-house silicon is captive; Etched can sell to Anthropic, xAI, Mistral, Cohere, sovereign AI buyers.</div></div>
+      <div class="timeline-item"><div class="timeline-dot" style="background:var(--green);"></div><div class="timeline-content"><strong>If they ship</strong> — first ASIC that's purpose-built and works at frontier model scale becomes the cost reference for the industry.</div></div>
+    </div>
+  </div>
+
+  <!-- ===== YOUR 2-MIN NARRATIVE ===== -->
+  <div class="section-title">Your 2-Minute "Tell Me About Yourself" (Tuned for Etched)</div>
+  <div class="card" style="border-color: var(--accent);">
+    <div style="font-size:0.92rem; line-height:1.85; color:var(--text);">
+      "I'm a hardware manufacturing and test engineering leader with 20-plus years across Apple, Meta, Square, Oculus, and most recently 1x Robotics. My specialty has been owning the path from <em>tested silicon to shipped system at scale</em> — Apple display calibration and FATP at Foxconn at 100 million units a year, Square Reader at 10 million units with a sub-$3 BOM, and at 1x I built the entire manufacturing and test function from scratch on a humanoid robot.
+      <br><br>
+      Etched is the most interesting hardware company in the Valley right now precisely because the silicon thesis is sharp — burn the transformer into the die, accept the lock-in, take the 10× perf/$ uplift. But that thesis only ships if the 8×Sohu box gets out the door at yield, at cost, at quality — and that's the function that doesn't exist yet at a 35-person startup. That's the role I'm here for.
+      <br><br>
+      I've already had a great first conversation with Ashank, and Tom flagged this might land closer to <em>Head of Manufacturing Engineering</em> than the original SMT-lead scope. I'd love to talk about which shape makes sense given where you are on the Sohu ramp."
+    </div>
+  </div>
+
+  <!-- ===== EXPECTED QUESTIONS — BY INTERVIEWER ===== -->
+  <div class="section-title">Expected Questions — Organized By Interviewer</div>
+
+  <!-- Wayne -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:0.82rem; color:var(--accent2); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">⟶ Wayne Cao · Supply Chain</div>
+    <div class="grid-2">
+      <div class="q-block">
+        <div class="q-label">Boundary</div>
+        <div class="q-text">"How do you see the line between supply chain and manufacturing engineering at our stage?"</div>
+        <div class="q-hint">→ "You own inbound — wafer, package, HBM, mechanicals. I own everything from arrival into the CM through shipped system: test, yield, NPI, DFx loop, field quality. Interface = incoming-quality spec + joint forecast — we run that together."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">CM Selection</div>
+        <div class="q-text">"If we asked you to pick a CM for the 8×Sohu server tomorrow, how would you approach it?"</div>
+        <div class="q-hint">→ AI-server ODMs: Quanta / Wiwynn / Inventec / Foxconn (Hon Hai's AI-server arm) / ZT Systems (now AMD). Complexity match, geographic diversification post-2025 tariffs, IP-security regime, allocation calculus against Nvidia/AMD volume. Show you know the AI-server CM map, not just consumer.</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Apple Era Probe</div>
+        <div class="q-text">"You were at Apple supply chain too — who were you working with?"</div>
+        <div class="q-hint">→ This is the warmest opening. Drop 1–2 specific names you both might know in Apple Operations / Manufacturing Design. Pivot to a war story about Foxconn ramp pressure or Pegatron yield rescue.</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Big-Tech to Startup</div>
+        <div class="q-text">"What's been hardest about going from Apple/Meta to a small company?"</div>
+        <div class="q-hint">→ "The first 90 days at 1x I missed the army of cross-functional partners. By month four I realized that absence is the upside — decisions stop taking three weeks. The instinct I had to retrain was 'who do I escalate to' — at small co, the answer is 'me.'"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kurt -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:0.82rem; color:var(--blue); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">⟶ Kurt Ding · Manufacturing Test</div>
+    <div class="grid-2">
+      <div class="q-block">
+        <div class="q-label">Test-Station Architecture</div>
+        <div class="q-text">"Walk me through a test station you owned end-to-end — the actual hardware/software stack."</div>
+        <div class="q-hint">→ Best story: Apple display Lumitop optical calibration — what the fixture did, the cameras/spectrometers, the LabVIEW (or equivalent) stack, the data pipeline back to MES, the operator UI. Or 1x: humanoid system-level functional test you built from zero. Pick ONE and go deep.</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Bring-Up vs. Production</div>
+        <div class="q-text">"How do you phase test from first-silicon bring-up into production test?"</div>
+        <div class="q-hint">→ Three phases: (1) <em>characterization</em> — exhaustive, instrumented, slow; lab-grade; (2) <em>screening</em> — derived from char data, fast, EVT/DVT; (3) <em>production</em> — locked content, statistical process control on key params, cycle time minimized. Each phase needs a coverage exit criterion.</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">DFT &amp; Wafer-Probe Boundary</div>
+        <div class="q-text">"How do you specify DFT hooks back to silicon designers, and where does wafer-probe end / package test begin?"</div>
+        <div class="q-hint">→ Honest framing: wafer-probe is more Kurt's lane than yours. Bridge: "I've specified scan chains and JTAG hooks for system-level test at Apple/Meta — the principle is identical at wafer; the scale and ATE platform differ. I'd lean on you for ATE platform choice and pair on the spec."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">NVIDIA / Meta Comparison</div>
+        <div class="q-text">"What did you do at Meta that's directly relevant here?"</div>
+        <div class="q-hint">→ Reality Labs precision optics test, multi-CM (Foxconn / Pegatron / Goertek) test program ownership, traceability + data-pipeline rigor expected at FAANG scale. Acknowledge Kurt's Meta infra experience is closer to data-center class than Reality Labs.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tom -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:0.82rem; color:var(--purple); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">⟶ Tom Zhao · Quality</div>
+    <div class="grid-2">
+      <div class="q-block">
+        <div class="q-label">Quality Philosophy</div>
+        <div class="q-text">"What does manufacturing quality look like in your operating model?"</div>
+        <div class="q-hint">→ "Quality is not the QE team's job — it's an outcome of test design, supplier engineering, and DFx discipline. My role: build the test coverage and the data loop. QE's role: enforce the spec, run 8D on field returns, audit suppliers. They report into a peer; we co-own the field-defect-rate KPI."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Customer-Acceptance Bar</div>
+        <div class="q-text">"Have you delivered to hyperscaler-grade quality bars before?"</div>
+        <div class="q-hint">→ Honest: not Super-Micro-volume-AI-server scale. But: Apple FATP yield + PPM was hyperscaler-grade quality math; DoD-leaning customers at Meta; 1x's safety-critical humanoid bar. Express respect for Tom's domain explicitly — "I'd want to pair with you in the first 30 days to map Etched's customer-acceptance test plan."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">8D / FA Story</div>
+        <div class="q-text">"Tell me about a real field-failure 8D you led."</div>
+        <div class="q-hint">→ Pick one with a hard root-cause: an Apple display defect, a Square Reader return cluster, a 1x mechanical issue. Walk D1→D8. Show the part-of-D7 (preventive) you cared most about — that's the quality-leader signal Tom listens for.</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Regulatory / Compliance</div>
+        <div class="q-text">"What's your experience with ISO 9001, EPEAT, REACH, export compliance for AI servers?"</div>
+        <div class="q-hint">→ Lighter on regulatory than Tom. Honest: "My background is mostly product-quality and reliability, not compliance audits. ISO 9001 I've worked under, not built. AI-server export control (BIS, EAR) is new to me — I'd want you and Wayne owning that, with me supporting on the test/documentation side."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sanford -->
+  <div style="margin-bottom:20px;">
+    <div style="font-size:0.82rem; color:var(--green); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">⟶ Sanford Long · Platform / System</div>
+    <div class="grid-2">
+      <div class="q-block">
+        <div class="q-label">AR Headset Overlap (open with this)</div>
+        <div class="q-text">"I saw you did the mechanical POC for Ghost Pacer — that's almost exactly the AR optics work I led at Meta Reality Labs. How did you approach packaging?"</div>
+        <div class="q-hint">→ This is a relationship-builder. Sanford built the lightest fully-self-contained AR headset. You built test stations for Quest and Ray-Ban Meta. Trade stories. Pivot to: how mechanical packaging discipline transfers to the 8-chip Sohu box (also thermally constrained, power-constrained, optics-style integration).</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">First-System Bring-Up</div>
+        <div class="q-text">"What's your approach when you have 3 working systems and 30 things broken?"</div>
+        <div class="q-hint">→ Lock a golden unit, instrument it heavily, build the test harness incrementally, single failure tracker designers can read, daily standup that ruthlessly closes issues. Reference 1x — first humanoids were this exact regime.</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Speed vs. Process</div>
+        <div class="q-text">"Are you going to slow us down with Apple-style process?"</div>
+        <div class="q-hint">→ "1x was the trial run for exactly that question. I left 80% of Apple's process at the door. What I kept: configuration management, test-data traceability, FA discipline. Those don't slow you down — they prevent the rework that does. I'll defend that line, but only that line."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Mechanical / Thermal of Sohu Box</div>
+        <div class="q-text">"What questions would you ask my team about the 8×Sohu server platform?"</div>
+        <div class="q-hint">→ Cooling architecture (DLC? Air? Hybrid?); rack form factor and EIA compliance; power distribution (48V? 12V?); OCP-friendly?; serviceability (hot-swap modules?); mechanical interfaces to OAM-like accelerator boards; mass production fixturing requirements that flow from his mechanical choices. Show you'll engage with platform as a partner, not just a downstream consumer.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Generic / closing -->
+  <div>
+    <div style="font-size:0.82rem; color:var(--orange); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">⟶ Generic (any of them may ask)</div>
+    <div class="grid-2">
+      <div class="q-block">
+        <div class="q-label">Why Etched</div>
+        <div class="q-text">"Why Etched specifically, vs. the dozen other AI-hardware companies?"</div>
+        <div class="q-hint">→ "Most are hedging — keeping programmability, training+inference, multiple model classes. Etched is the only one that took the architectural-lock-in bet seriously. Either you're right and you own inference economics, or you're wrong and there's no consolation prize. I want to be on the team that took the real swing."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Sohu Risk</div>
+        <div class="q-text">"What's the manufacturing risk you'd lose sleep over?"</div>
+        <div class="q-hint">→ "Reticle-limit die yield at 4nm; CoWoS slot allocation against Nvidia/AMD; HBM3E supply concentration. None are mine to solve directly — but the cost-of-yield-loss flows into my world via the test/binning/grade-out strategy. I'd want to instrument that loop on day one."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Title / Level</div>
+        <div class="q-text">"Tom Sherry mentioned this could be 'Lead' or 'Head of' — what level fits you?"</div>
+        <div class="q-hint">→ "I've operated at director scope at Apple, Meta, 1x. The right title is whatever signals the work — if I'm the most senior mfg-eng person and own the function build-out, 'Head of Manufacturing Engineering' is the accurate description. I'd rather get the scope right than negotiate a word."</div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">First 90 Days</div>
+        <div class="q-text">"What would your first 90 days look like?"</div>
+        <div class="q-hint">→ Days 1–30: meet every CM/OSAT partner Wayne has, read every test program Kurt has, walk every line. Days 31–60: write the mfg-eng strategy doc (CM selection criteria, test coverage targets, headcount plan). Days 61–90: first hire (AI-server NPI specialist), first test station scoped, first DFx review with silicon team.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== QUESTIONS TO ASK ===== -->
+  <div class="section-title">Questions To Ask — Tailored Per Interviewer</div>
+  <div class="grid-2">
+    <div>
+      <div class="ask-q"><div class="ask-num">W1</div><div><strong>Wayne:</strong> Where are you on CoWoS allocation and HBM3E supply for the first production run? How much risk is in that path vs. die yield?</div></div>
+      <div class="ask-q"><div class="ask-num">W2</div><div><strong>Wayne:</strong> Who's the lead customer? Anthropic and OpenAI are rumored — what's the contracted volume for the first 12 months, and how does that shape mfg-eng priorities?</div></div>
+      <div class="ask-q"><div class="ask-num">W3</div><div><strong>Wayne:</strong> Have you locked an AI-server-class CM yet, or is that exactly the next decision the mfg-eng lead would drive together with you?</div></div>
+      <div class="ask-q"><div class="ask-num">K1</div><div><strong>Kurt:</strong> What's the current state of the test stack — wafer probe vendor, SLT, FATP at the CM, customer-acceptance test? Where are the biggest gaps?</div></div>
+      <div class="ask-q"><div class="ask-num">K2</div><div><strong>Kurt:</strong> Are you happier as the technical owner of test execution, with a leader (me) handling the org / CM / customer side? Want to make sure the seam is one we'd both want.</div></div>
+      <div class="ask-q"><div class="ask-num">K3</div><div><strong>Kurt:</strong> Is the test platform proprietary, or are you on a standard ATE (Advantest / Teradyne)? What's the build-vs-buy stance on test infra?</div></div>
+    </div>
+    <div>
+      <div class="ask-q"><div class="ask-num">T1</div><div><strong>Tom:</strong> What does Etched's customer-acceptance test plan look like today, and who owns it? At Super Micro that was a real org muscle — is it staffed yet here?</div></div>
+      <div class="ask-q"><div class="ask-num">T2</div><div><strong>Tom:</strong> What's the field-quality KPI you want me on the hook for? PPM? DPPM? Mean-time-between-RMAs? Pick the metric and we align day one.</div></div>
+      <div class="ask-q"><div class="ask-num">T3</div><div><strong>Tom:</strong> ISO 9001 cert — are you targeting it, or skipping in favor of customer-specific quality agreements?</div></div>
+      <div class="ask-q"><div class="ask-num">S1</div><div><strong>Sanford:</strong> What does the 8×Sohu server look like physically — OAM-style modules? Custom backplane? DLC or air? Where does it land in a rack?</div></div>
+      <div class="ask-q"><div class="ask-num">S2</div><div><strong>Sanford:</strong> Who owns first-silicon bring-up today? Does that stay with platform, or migrate to a system-test team I'd build?</div></div>
+      <div class="ask-q"><div class="ask-num">S3</div><div><strong>Sanford:</strong> How do you and the silicon team handle DFx-feedback timing? Are package and board revs locked, or still iterating?</div></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:14px;">
+    <div>
+      <div class="ask-q"><div class="ask-num">G1</div><div><strong>Generic:</strong> What's the first product milestone you want this MFG-eng lead to own end-to-end? PVT? First MP? First customer-acceptance build?</div></div>
+      <div class="ask-q"><div class="ask-num">G2</div><div><strong>Generic:</strong> How does Etched think about the transformer-replacement risk (Mamba, SSMs, diffusion)? Has the architecture team considered partial reconfigurability for next-gen?</div></div>
+    </div>
+    <div>
+      <div class="ask-q"><div class="ask-num">G3</div><div><strong>Generic:</strong> Headcount plan for mfg-eng through end of 2026? US-only or US + Asia from the start? Where do you want the first hires?</div></div>
+      <div class="ask-q"><div class="ask-num">G4</div><div><strong>Closing:</strong> Given today's conversation, what's the next step — chat with Ajat Hukkoo / Mark Ross / Gavin?</div></div>
+    </div>
+  </div>
+
+  <!-- ===== KEY DIFFERENCES TO REMEMBER ===== -->
+  <div class="section-title">Key Differences vs. Your Past Companies (Show Self-Awareness)</div>
+  <div class="card">
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Product class</strong></div><div class="match-val" style="color:var(--text);">AI-server box (kW-class, liquid-cooled) — not phone, ring, or VR headset. Test-current and thermal regimes are 2 orders of magnitude harder.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Volume</strong></div><div class="match-val" style="color:var(--text);">Thousands–tens of thousands of servers in Year 1 — not millions. Test cost-per-unit budget is much higher; test depth can be much greater.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">CM landscape</strong></div><div class="match-val" style="color:var(--text);">AI-server ODMs (Quanta, Wiwynn, Foxconn-ZT, Inventec) — not consumer ODMs. Different culture, different deal sizes, different IP-security regime.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Customer</strong></div><div class="match-val" style="color:var(--text);">Hyperscalers and AI labs (OpenAI / Anthropic / sovereign), not retail. Acceptance testing is contractual, customer-specific, brutal.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Silicon involvement</strong></div><div class="match-val" style="color:var(--text);">Your DFx feedback now goes into the chip team directly — not into a Cypress-like external silicon vendor. Much tighter loop, much higher leverage.</div></div>
+    <div class="match-row"><div class="match-req"><strong style="color:var(--text);">Failure mode</strong></div><div class="match-val" style="color:var(--text);">If your prior products had a 1% field defect rate, replacement was annoying. Here, a single defect in a $200K server is a customer-relationship event. Quality bar is closer to aerospace than consumer.</div></div>
+  </div>
+
+  <!-- ===== LOGISTICS / DAY OF ===== -->
+  <div class="section-title">May 12 Day-of Logistics</div>
+  <div class="card" style="border-color: rgba(245,158,11,0.4);">
+    <div style="font-size:0.88rem; display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+      <div>
+        <div style="color:var(--yellow); font-weight:700; font-size:0.82rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">~11:45 AM</div>
+        <div style="font-weight:700;">Leave home</div>
+        <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Allow 45 min for traffic to Santana Row. Park in the public garage — Etched offices are above the retail level.</div>
+      </div>
+      <div style="border-left:1px solid var(--border); border-right:1px solid var(--border); padding:0 16px;">
+        <div style="color:var(--accent); font-weight:700; font-size:0.82rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">12:30 PM</div>
+        <div style="font-weight:700;">Arrive · 4-person panel</div>
+        <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Likely: lunch / coffee opener with Wayne, then ~30 min each with Kurt (test), Tom (quality), Sanford (platform). Confirm running order at check-in. Mental energy budget — pace yourself across all four.</div>
+      </div>
+      <div>
+        <div style="color:var(--green); font-weight:700; font-size:0.82rem; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">After</div>
+        <div style="font-weight:700;">Follow-up (per-person)</div>
+        <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Separate thank-you to each of Wayne / Kurt / Tom / Sanford within 2 hours — 3 sentences each, reference one specific thing they said. Then to Tom Sherry (recruiter) by EOD with read-out and explicit interest signal.</div>
+      </div>
+    </div>
+    <div class="warn-box" style="margin-top:14px; margin-bottom:0;">
+      <strong>What to bring:</strong> Printed copy of your résumé (the Etched-tailored CY_2026_Etched.pdf in this folder); paper notebook (looks better than tapping on a phone); business card if you have one; small water bottle. Wear nice casual — collared shirt, no tie. Etched is silicon-startup, not enterprise.
+    </div>
+  </div>
+
+  <!-- ===== ENERGY / CLOSING REMINDERS ===== -->
+  <div class="section-title">Closing Reminders</div>
+  <div class="grid-2">
+    <div class="info-box">
+      <strong>Energy &amp; Tone:</strong> This is the most interesting hardware company you've been to in months. <em>Show it.</em> Wayne and Sanford are smart, young, and have very high standards — they want to see someone who lights up about Sohu specifically, not someone collecting offers. Bring the technical curiosity you'd bring to a Meta keynote.
+    </div>
+    <div class="warn-box">
+      <strong>Watch-outs:</strong> Don't oversell consumer-scale numbers (Apple 100M/yr is impressive but not directly transferable — name the gap and how you'd close it). Don't claim wafer or OSAT expertise you don't have — Wayne will see through it instantly and respect honesty more.
+    </div>
+    <div class="purple-box">
+      <strong>If asked about other offers:</strong> Be candid. Ampere just wrapped (Apr 27). Oura phone screen done. PacBio active. "I have several conversations but Etched is the one I'm most leaning into — the thesis is sharper and the role shape would be more impactful here." Sets useful urgency without sounding desperate.
+    </div>
+    <div class="red-box">
+      <strong>Title trap:</strong> Tom Sherry flagged this could be "Lead" OR "Head of." If they push for "Lead" wording, calmly probe scope: who reports to me, what's the headcount plan, what's the comp band, who do I report to. Title without scope is meaningless; title with scope is leverage.
+    </div>
+  </div>
+
+</div>
+<footer>Generated 2026-05-11 · Updated 2026-05-12 with 4-person panel · Chuck Yin Interview Prep · CONFIDENTIAL</footer>
+</body>
+</html>
